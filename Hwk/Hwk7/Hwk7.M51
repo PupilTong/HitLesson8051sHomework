@@ -1,0 +1,146 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/01/2015  20:28:48  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\PROGRAM FILES (X86)\KEIL\C51\BIN\BL51.EXE STARTUP.obj, Hwk7.obj TO Hwk7
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  Hwk7.obj (HWK7)
+
+
+LINK MAP OF MODULE:  Hwk7 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+* OVERLAP * CODE    0000H     1054H     ABSOLUTE     
+            CODE    1054H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+UNRESOLVED EXTERNAL SYMBOLS:
+   ?C_START
+
+
+
+SYMBOL TABLE OF MODULE:  Hwk7 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:1054H         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:1057H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:1054H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/01/2015  20:28:48  PAGE 2
+
+
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:1054H         LINE#         133
+  C:1056H         LINE#         134
+  C:1057H         LINE#         135
+  C:1058H         LINE#         136
+  C:105AH         LINE#         185
+  C:105DH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        HWK7
+  D:00E0H         SYMBOL        ACC
+  C:101BH         SYMBOL        DELAYMS
+  C:1020H         SYMBOL        DELAYMSCIRCLE1
+  C:1025H         SYMBOL        DELAYMSCIRCLE2
+  C:1000H         SYMBOL        MAIN
+  C:1005H         SYMBOL        MAINFUNCTION
+  D:0080H         SYMBOL        P0
+  C:100CH         SYMBOL        RUN
+  D:0081H         SYMBOL        SP
+  C:1044H         SYMBOL        TAB2
+  C:1036H         SYMBOL        TRANSFERNUMBERTOSIGNCODE
+  C:0000H         LINE#         2
+  C:1000H         LINE#         5
+  C:1003H         LINE#         6
+  C:1005H         LINE#         8
+  C:1008H         LINE#         9
+  C:100AH         LINE#         10
+  C:100CH         LINE#         12
+  C:100EH         LINE#         13
+  C:1010H         LINE#         14
+  C:1013H         LINE#         15
+  C:1016H         LINE#         16
+  C:1018H         LINE#         17
+  C:1019H         LINE#         18
+  C:101BH         LINE#         20
+  C:101DH         LINE#         21
+  C:1020H         LINE#         23
+  C:1022H         LINE#         24
+  C:1025H         LINE#         26
+  C:1028H         LINE#         27
+  C:102AH         LINE#         28
+  C:102DH         LINE#         29
+  C:102FH         LINE#         30
+  C:1030H         LINE#         31
+  C:1031H         LINE#         32
+  C:1032H         LINE#         33
+  C:1035H         LINE#         34
+  C:1036H         LINE#         36
+  C:1038H         LINE#         37
+  C:103BH         LINE#         38
+  C:103DH         LINE#         39
+  C:103EH         LINE#         40
+  C:103FH         LINE#         41
+  C:1041H         LINE#         42
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/01/2015  20:28:48  PAGE 3
+
+
+  C:1043H         LINE#         43
+  -------         ENDMOD        HWK7
+
+*** WARNING L5: CODE SPACE MEMORY OVERLAP
+    FROM:    0000H
+    TO:      0002H
+
+*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+
+*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
+    SYMBOL:  ?C_START
+    MODULE:  STARTUP.obj (?C_STARTUP)
+    ADDRESS: 105EH
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0066H BYTE ( 4%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=4195
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)

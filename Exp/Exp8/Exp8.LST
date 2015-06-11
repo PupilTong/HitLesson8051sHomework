@@ -1,0 +1,197 @@
+A51 MACRO ASSEMBLER  EXP8                                                                 05/16/2015 18:34:24 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp8.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp8.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+1000                   3     ORG 1000H
+1000                   4             MAIN:
+1000 758148            5                     MOV SP,#048H;030ÑÓ³Ù´«²Î£¬031¶¨Ê±ÖÐ¶Ï´ÎÊ£¬032¶¨Ê±Æ÷ÖÐ¶ÏµÍ°ËÎ»£¬033¶¨Ê±Æ÷ÖÐ¶
+                             Ï¸ß°ËÎ»
+                       6                     ;034¼üÅÌÁÙÊ±´«²Î/³õÊ¼»¯³ÌÐò´«²ÎÆðÊ¼µØÖ·,035¼üÅÌ´¦Àí³ÌÐòÁÙÊ±±äÁ¿£¨¼Ä´æÆ÷²»ÄÜ
+                             Ð´·ÖÖ§Óï¾ä£©/³õÊ¼»¯³ÌÐò´«²ÎÖÕÖ¹µØÖ·,036H¼üÅÌ½á¹û
+                       7                     ;037-03EÏÔÊ¾Ê×Ö´æ´¢,03F×÷ÏÔÊ¾Î»Ñ¡Ö¸Õë;040H×÷Îª´®¿Ú·¢ËÍÆðÊ¼µØÖ·/Ö¸Õë£¬041H´®
+                             ¿Ú·¢ËÍÖÕÖ¹µØÖ·
+                       8                     ;042H ÏÔÊ¾Æ÷´«²Î
+                       9                     ;MOV 036H,#0FFH;
+1003 850530           10                     MOV 030H,05H;
+1006 11D6             11                     ACALL DelayMs
+1008 1183             12                     ACALL InitialiseLcd
+100A 900C00           13                     MOV DPTR,#0C00H
+100D 7448             14                     MOV A,#48H;H
+100F F0               15                     MOVX @DPTR,A;
+1010 11BE             16                     ACALL WaitLcd
+1012 7465             17                     MOV A,#65H;e
+1014 F0               18                     MOVX @DPTR,A;
+1015 11BE             19                     ACALL WaitLcd
+1017 746C             20                     MOV A,#6CH;l
+1019 F0               21                     MOVX @DPTR,A;
+101A 11BE             22                     ACALL WaitLcd
+101C 746C             23                     MOV A,#6CH;l
+101E F0               24                     MOVX @DPTR,A;
+101F 11BE             25                     ACALL WaitLcd
+1021 746F             26                     MOV A,#6FH;o
+1023 F0               27                     MOVX @DPTR,A;
+1024 11BE             28                     ACALL WaitLcd
+1026 7420             29                     MOV A,#20H;¿Õ¸ñ
+1028 F0               30                     MOVX @DPTR,A;
+1029 11BE             31                     ACALL WaitLcd
+                      32                     ;-------------------
+102B 7457             33                     MOV A,#57H;W
+102D F0               34                     MOVX @DPTR,A;
+102E 11BE             35                     ACALL WaitLcd
+1030 7465             36                     MOV A,#65H;e
+1032 F0               37                     MOVX @DPTR,A;
+1033 11BE             38                     ACALL WaitLcd
+1035 746C             39                     MOV A,#6CH;l
+1037 F0               40                     MOVX @DPTR,A;
+1038 11BE             41                     ACALL WaitLcd
+103A 7463             42                     MOV A,#63H;c
+103C F0               43                     MOVX @DPTR,A;
+103D 11BE             44                     ACALL WaitLcd
+103F 746F             45                     MOV A,#6FH;o
+1041 F0               46                     MOVX @DPTR,A;
+1042 11BE             47                     ACALL WaitLcd
+1044 746D             48                     MOV A,#6DH;m
+1046 F0               49                     MOVX @DPTR,A;
+1047 11BE             50                     ACALL WaitLcd
+1049 7465             51                     MOV A,#65H;e
+104B F0               52                     MOVX @DPTR,A;
+104C 11BE             53                     ACALL WaitLcd
+                      54                     ;---------------------------
+104E 908000           55                     MOV DPTR,#8000H
+A51 MACRO ASSEMBLER  EXP8                                                                 05/16/2015 18:34:24 PAGE     2
+
+1051 74C0             56                     MOV A,#0C0H
+1053 F0               57                     MOVX @DPTR,A
+1054 11BE             58                     ACALL WaitLcd
+1056 90C000           59                     MOV DPTR,#0C000H
+1059 7454             60                     MOV A,#54H;T
+105B F0               61                     MOVX @DPTR,A;
+105C 11BE             62                     ACALL WaitLcd
+105E 746F             63                     MOV A,#6FH;o
+1060 F0               64                     MOVX @DPTR,A;
+1061 11BE             65                     ACALL WaitLcd
+1063 7420             66                     MOV A,#20H;¿Õ¸ñ
+1065 F0               67                     MOVX @DPTR,A;
+1066 11BE             68                     ACALL WaitLcd
+                      69                     ;---------------------------
+1068 7443             70                     MOV A,#43H;C
+106A F0               71                     MOVX @DPTR,A;
+106B 11BE             72                     ACALL WaitLcd
+106D 7468             73                     MOV A,#68H;h
+106F F0               74                     MOVX @DPTR,A;
+1070 11BE             75                     ACALL WaitLcd
+1072 7469             76                     MOV A,#69H;i
+1074 F0               77                     MOVX @DPTR,A;
+1075 11BE             78                     ACALL WaitLcd
+1077 746E             79                     MOV A,#6EH;n
+1079 F0               80                     MOVX @DPTR,A;
+107A 11BE             81                     ACALL WaitLcd
+107C 7461             82                     MOV A,#61H;a
+107E F0               83                     MOVX @DPTR,A;
+107F 11BE             84                     ACALL WaitLcd
+1081                  85                     MainFunction:
+1081 80FE             86                             SJMP MainFunction;
+1083                  87             InitialiseLcd:
+1083 908000           88                     MOV DPTR,#8000H;
+1086 7430             89                     MOV A,#30H
+1088 F0               90                     MOVX @DPTR,A;
+1089 753001           91                     MOV 030H,#01;
+108C 11D6             92                     ACALL DelayMs
+108E F0               93                     MOVX @DPTR,A
+108F 753001           94                     MOV 030H,#01;
+1092 11D6             95                     ACALL DelayMs
+1094 F0               96                     MOVX @DPTR,A;
+1095 11BE             97                     ACALL WaitLcd
+1097 7408             98                     MOV A,#08H
+1099 F0               99                     MOVX @DPTR,A
+109A 11BE            100                     ACALL WaitLcd
+109C 7401            101                     MOV A,#01H
+109E F0              102                     MOVX @DPTR,A
+109F 11BE            103                     ACALL WaitLcd
+10A1 7406            104                     MOV A,#06H
+10A3 F0              105                     MOVX @DPTR,A
+10A4 11BE            106                     ACALL WaitLcd
+                     107                     
+10A6 908000          108                     MOV DPTR,#8000H;
+10A9 7401            109                     MOV A,#01H;;ÇåÆÁ²¢ÖÃACÎª0
+10AB F0              110                     MOVX @DPTR,A
+10AC 11BE            111                     ACALL WaitLcd
+10AE 7430            112                     MOV A,#30H;
+10B0 F0              113                     MOVX @DPTR,A;8Î»½Ó¿Ú£¬Á½ÐÐÏÔÊ¾£¬5x7µãÕó
+10B1 11BE            114                     ACALL WaitLcd
+10B3 740E            115                     MOV A,#0EH;
+10B5 F0              116                     MOVX @DPTR,A;¿ªÏÔÊ¾¼°¹â±ê£¬²»ÉÁË¸
+10B6 11BE            117                     ACALL WaitLcd
+10B8 7406            118                     MOV A,#06H
+10BA F0              119                     MOVX @DPTR,A;ÄÚÈÝÏÔÊ¾£¬acÎªÔöÁ¿
+10BB 11BE            120                     ACALL WaitLcd;ÉèÖÃÍê±Ï
+10BD 22              121                     RET
+A51 MACRO ASSEMBLER  EXP8                                                                 05/16/2015 18:34:24 PAGE     3
+
+10BE                 122             WaitLcd:
+10BE C082            123                     PUSH DPL
+10C0 C083            124                     PUSH DPH
+10C2 C0D0            125                     PUSH PSW
+10C4 C0E0            126                     PUSH Acc
+10C6                 127                     Wait:
+10C6 908000          128                             MOV DPTR,#8000H
+10C9 E0              129                             MOVX A,@DPTR
+10CA 20E7F9          130                             JB Acc.7,Wait
+10CD D0E0            131                     POP Acc
+10CF D0D0            132                     POP PSW
+10D1 D083            133                     POP DPH
+10D3 D082            134                     POP DPL
+10D5 22              135                     RET
+10D6                 136             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+10D6 C030            137                     PUSH 030H;±£»¤30H,2us
+10D8 75305A          138                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+10DB                 139                     DelayMsCircle1:;9992US
+10DB C030            140                             PUSH 030H;2us
+10DD 753034          141                             MOV 030H,#034H;DEC=52,1us
+10E0                 142                             DelayMsCircle2:
+10E0 D530FD          143                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+10E3 D030            144                             POP 030H;2us
+10E5 D530F3          145                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+10E8 D030            146                     POP 030H;»Ö¸´30H,2us
+10EA 00              147                     NOP;1US
+10EB 00              148                     NOP;1US
+10EC 00              149                     NOP;1US
+10ED D530E6          150                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+10F0 22              151                     RET                       ;2us
+                     152     END
+A51 MACRO ASSEMBLER  EXP8                                                                 05/16/2015 18:34:24 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . .  C ADDR   10D6H   A   
+DELAYMSCIRCLE1 . .  C ADDR   10DBH   A   
+DELAYMSCIRCLE2 . .  C ADDR   10E0H   A   
+DPH. . . . . . . .  D ADDR   0083H   A   
+DPL. . . . . . . .  D ADDR   0082H   A   
+INITIALISELCD. . .  C ADDR   1083H   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1081H   A   
+PSW. . . . . . . .  D ADDR   00D0H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+WAIT . . . . . . .  C ADDR   10C6H   A   
+WAITLCD. . . . . .  C ADDR   10BEH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

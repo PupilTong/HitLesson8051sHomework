@@ -1,0 +1,93 @@
+A51 MACRO ASSEMBLER  EXP2                                                                 04/29/2015 10:50:55 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp2.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp2.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+0003                   3     ORG 0003H
+0003 02102E            4             LJMP Int0Processer;
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758131            7                      MOV SP,#031H;
+1003 7401              8                      MOV A,#01H;
+1005 1143              9                      ACALL InitialiseInt0;≥ı ºªØ÷–∂œ
+1007 7D00             10                      MOV R5,#00H;R5=0‘Ú‘À––
+1009                  11                      MainFunction:
+1009                  12                             WaveLed:;¡˜ÀÆµ∆ƒ£ Ω
+1009 F590             13                                     MOV P1,A;
+100B 03               14                                     RR A;
+100C 753019           15                                     MOV 030H,#019H;
+100F 1113             16                                     ACALL DelayMs;
+1011 80F6             17                                     SJMP MainFunction;
+1013                  18             DelayMs:      ;—” ±…œœﬁ256ms£¨ŒÛ≤Ó√ø¥Œ8us£¨ŒÛ≤Ó¿¥◊‘”⁄LCALL°¢∑µªÿ÷∏¡Ó°¢R7µƒ±£ª§∫Õª÷∏
+                             ¥£¨«Î π”√LCALL°¢SCALL∑√Œ ±æ◊”≥Ã–Ú,°æ«ÎΩ´≤Œ ∑≈‘⁄30H÷–°ø,±æÃı÷∏¡Ó≤ª∫¨œ÷≥°±£ª§£¨±æÃı÷∏¡Ó–Ë“™R7&R6¥Ê¥¢∆˜£°
+1013 C030             19                     PUSH 030H;±£ª§30H,2us
+1015 75305A           20                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1018                  21                     DelayMsCircle1:;9992US
+1018 C030             22                             PUSH 030H;2us
+101A 753034           23                             MOV 030H,#034H;DEC=52,1us
+101D                  24                             DelayMsCircle2:
+101D D530FD           25                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1020 D030             26                             POP 030H;2us
+1022 D530F3           27                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircle÷¥––“ª¥Œ–
+                             Ë“™4us,—≠ª∑4*249=996US
+1025 D030             28                     POP 030H;ª÷∏¥30H,2us
+1027 00               29                     NOP;1US
+1028 00               30                     NOP;1US
+1029 00               31                     NOP;1US
+102A D530E6           32                     DJNZ 030H,DelayMS                           ;◊™“∆£¨2us
+102D 22               33                     RET                       ;2us
+102E                  34             Int0Processer:
+102E                  35                     FlashLed:;…¡À∏ƒ£ Ω
+102E C0E0             36                             PUSH ACC;
+1030 759000           37                             MOV P1,#00H;
+1033 753019           38                             MOV 030H,#019H;
+1036 1113             39                             ACALL DelayMs;
+1038 7590FF           40                             MOV P1,#0FFH;
+103B 753019           41                             MOV 030H,#019H;
+103E 1113             42                             ACALL DelayMs;
+1040 D0E0             43                             POP ACC;
+1042 32               44                     RETI;
+1043                  45             InitialiseInt0:
+1043 C288             46                     CLR IT0;µÁ∆Ω¥•∑¢∑Ω Ω
+1045 D2B8             47                     SETB PX0;∏ﬂ”≈œ»º∂
+1047 D2A8             48                     SETB EX0;int0÷–∂œ‘ –Ì
+1049 D2AF             49                     SETB EA ;◊‹÷–∂œ‘ –Ì
+104B 22               50                     RET
+                      51                     
+                      52     END
+A51 MACRO ASSEMBLER  EXP2                                                                 04/29/2015 10:50:55 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . .  C ADDR   1013H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1018H   A   
+DELAYMSCIRCLE2 . .  C ADDR   101DH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+FLASHLED . . . . .  C ADDR   102EH   A   
+INITIALISEINT0 . .  C ADDR   1043H   A   
+INT0PROCESSER. . .  C ADDR   102EH   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1009H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PX0. . . . . . . .  B ADDR   00B8H.0 A   
+SP . . . . . . . .  D ADDR   0081H   A   
+WAVELED. . . . . .  C ADDR   1009H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

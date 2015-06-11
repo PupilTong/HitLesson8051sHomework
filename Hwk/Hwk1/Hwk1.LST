@@ -1,0 +1,100 @@
+A51 MACRO ASSEMBLER  HWK1                                                                 05/31/2015 11:38:17 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk1.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk1.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+1000                   3     ORG 1000H
+1000                   4             MAIN:
+1000 758134            5                      MOV SP,#034H;
+1003 7401              6                      MOV A,#01H;
+1005                   7                      MainFunction:
+1005 753108            8                             MOV 031H,#08;—≠ª∑8¥Œ
+1008 753200            9                             MOV 032H,#0
+100B 7533FF           10                             MOV 033H,#0FFH
+100E                  11                             Loop1:
+100E 747F             12                                     MOV A,#07FH
+1010 853132           13                                     MOV 032H,031H
+1013                  14                                     Loop2:
+1013 23               15                                             RL A
+1014 C0E0             16                                             PUSH Acc
+1016 5533             17                                             ANL A,033H
+1018 F580             18                                             MOV P0,A
+101A D0E0             19                                             POP Acc
+101C 753032           20                                             MOV 030H,#50
+101F 1154             21                                             ACALL DelayMs
+1021 D532EF           22                                             DJNZ 032H,Loop2
+1024 5533             23                                     ANL A,033H
+1026 F533             24                                     MOV 033H,A;±£¥Ê“—æ≠¡¡µƒµ∆
+1028 D531E3           25                                     DJNZ 031H,Loop1
+102B 753108           26                             MOV 031H,#08;—≠ª∑8¥Œ
+102E 753200           27                             MOV 032H,#0
+1031 7533FF           28                             MOV 033H,#0FFH
+1034                  29                             Loop3:
+1034 74FE             30                                     MOV A,#0FEH
+1036 853132           31                                     MOV 032H,031H
+1039                  32                                     Loop4:
+1039 03               33                                             RR A
+103A C0E0             34                                             PUSH Acc
+103C 5533             35                                             ANL A,033H
+103E F580             36                                             MOV P0,A
+1040 D0E0             37                                             POP Acc
+1042 753032           38                                             MOV 030H,#50
+1045 1154             39                                             ACALL DelayMs
+1047 D532EF           40                                             DJNZ 032H,Loop4
+104A 5533             41                                     ANL A,033H
+104C F533             42                                     MOV 033H,A;±£¥Ê“—æ≠¡¡µƒµ∆
+104E D531E3           43                                     DJNZ 031H,Loop3
+1051 021005           44                             LJMP MainFunction
+1054                  45             DelayMs:      ;—” ±…œœﬁ256ms£¨ŒÛ≤Ó√ø¥Œ8us£¨ŒÛ≤Ó¿¥◊‘”⁄LCALL°¢∑µªÿ÷∏¡Ó°¢R7µƒ±£ª§∫Õª÷∏
+                             ¥£¨«Î π”√LCALL°¢SCALL∑√Œ ±æ◊”≥Ã–Ú,°æ«ÎΩ´≤Œ ∑≈‘⁄30H÷–°ø,±æÃı÷∏¡Ó≤ª∫¨œ÷≥°±£ª§£¨±æÃı÷∏¡Ó–Ë“™R7&R6¥Ê¥¢∆˜£°
+1054 C030             46                     PUSH 030H;±£ª§30H,2us
+1056 75305A           47                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1059                  48                     DelayMsCircle1:;9992US
+1059 C030             49                             PUSH 030H;2us
+105B 753034           50                             MOV 030H,#034H;DEC=52,1us
+105E                  51                             DelayMsCircle2:
+105E D530FD           52                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1061 D030             53                             POP 030H;2us
+1063 D530F3           54                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircle÷¥––“ª¥Œ–
+                             Ë“™4us,—≠ª∑4*249=996US
+1066 D030             55                     POP 030H;ª÷∏¥30H,2us
+1068 00               56                     NOP;1US
+A51 MACRO ASSEMBLER  HWK1                                                                 05/31/2015 11:38:17 PAGE     2
+
+1069 00               57                     NOP;1US
+106A 00               58                     NOP;1US
+106B D530E6           59                     DJNZ 030H,DelayMS                           ;◊™“∆£¨2us
+106E 22               60                     RET                       ;2us
+                      61     END
+A51 MACRO ASSEMBLER  HWK1                                                                 05/31/2015 11:38:17 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . .  C ADDR   1054H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1059H   A   
+DELAYMSCIRCLE2 . .  C ADDR   105EH   A   
+LOOP1. . . . . . .  C ADDR   100EH   A   
+LOOP2. . . . . . .  C ADDR   1013H   A   
+LOOP3. . . . . . .  C ADDR   1034H   A   
+LOOP4. . . . . . .  C ADDR   1039H   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1005H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

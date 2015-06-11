@@ -1,0 +1,134 @@
+A51 MACRO ASSEMBLER  EXP7                                                                 05/15/2015 23:35:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp7.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp7.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 020003            2             LJMP MAIN;
+0003                   3             MAIN:
+0003 7590F0            4                      MOV P1,#0F0H;
+0006 758160            5                      MOV SP,#60H;
+0009 850134            6                      MOV 034H,01H;
+000C                   7                      MainFunction:
+000C 1132              8                                     ACALL GetP1KeypadTo3435;
+000E 1157              9                                     ACALL SearchKeypadValue;
+0010 1174             10                                     ACALL TransferNumberToSignCode;
+0012 8534A0           11                                     MOV P2,034H;
+0015 80F5             12                                     SJMP MainFunction;
+                      13     
+0017                  14             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+0017 C030             15                     PUSH 030H;±£»¤30H,2us
+0019 75305A           16                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+001C                  17                     DelayMsCircle1:;9992US
+001C C030             18                             PUSH 030H;2us
+001E 753034           19                             MOV 030H,#034H;DEC=52,1us
+0021                  20                             DelayMsCircle2:
+0021 D530FD           21                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+0024 D030             22                             POP 030H;2us
+0026 D530F3           23                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+0029 D030             24                     POP 030H;»Ö¸´30H,2us
+002B 00               25                     NOP;1US
+002C 00               26                     NOP;1US
+002D 00               27                     NOP;1US
+002E D530E6           28                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+0031 22               29                     RET                       ;2us
+0032                  30             GetP1KeypadTo3435:;½«Ð´ÈëA 030H 034H R7£¬½«¶ÁÈ¡P1£¬½á¹ûÊä³öÔÚ034H
+0032 E590             31                     MOV A,P1
+0034 B4F007           32                     CJNE A,#0F0H,StartProcesser
+0037                  33                     EndProcesser:
+0037 D0E0             34                             POP Acc
+0039 D0E0             35                             POP Acc
+003B 02000C           36                             LJMP MainFunction
+003E                  37                     StartProcesser:
+003E 859035           38                     MOV 035H,P1;ÁÙÊ±±£´æP1
+0041 753002           39                     MOV 030H,#02H;ÑÓÊ±20msÏû¶¶
+0044 1117             40                     ACALL DelayMs;µ÷ÓÃÑÓÊ±º¯Ê
+0046 E590             41                     MOV A,P1;ÁÙÊ±±£´æP1
+0048 B535EC           42                     CJNE A,035H,EndProcesser;±È½Ï35ÓëP1,Èç¹û²»ÏàµÈËµÃ÷ÊÇ¶¶¶¯£¬Ö±½Ó·µ»Ø
+004B 75900F           43                     MOV P1,#00FH;
+004E 859034           44                     MOV 034H,P1;´¥·¢ÖÐ¶ÏºóÉ¨Ãè³ö°´¼üÎ»ÖÃ
+0051 7590F0           45                     MOV P1,#0F0H;--------------------------------------------------------
+0054 4234             46                     ORL 034H,A;0000 1110 ORL 1110 0000 = 1110 1110 EEH-------------------------
+                             ----------
+0056 22               47                     RET
+0057                  48             SearchKeypadValue:;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR¡¢A£¬ÐèÒªTAB1
+0057 900082           49                     MOV DPTR,#TAB1
+005A E534             50                     MOV A,034H
+005C 7400             51                     MOV A,#00H;
+005E                  52                     SearchKeypadValueLoop:
+005E C0E0             53                             PUSH Acc;
+0060 93               54                             MOVC A,@A+DPTR;²é±í½á¹ûËÍA
+0061 B53405           55                             CJNE A,034H,SearchKeypadValueNotTrue;²»µÈÓÚ¾ÍÌø×ª
+A51 MACRO ASSEMBLER  EXP7                                                                 05/15/2015 23:35:51 PAGE     2
+
+0064 D0E0             56                             POP Acc;
+0066 F534             57                             MOV 034H,A;Êä³ö½á¹û
+0068 22               58                     RET;
+0069                  59                     SearchKeypadValueNotTrue:
+0069 D0E0             60                             POP Acc;
+006B 04               61                             INC A
+006C B41003           62                             CJNE A,#10H,NotSearchFailed;»¹Ã»µ½µÚ16¸ö£¨15£©,¾Í¼ÌÐøÑ­»·
+006F 020037           63                                     LJMP EndProcesser;µ½ÁË£¬Ö±½ÓÍË³ö
+0072                  64                             NotSearchFailed:
+0072 80EA             65                                     SJMP SearchKeypadValueLoop;
+0074                  66             TransferNumberToSignCode:;Ê×Ö×ª»»¶ÎÂë;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR
+                             ,A£¬ÐèÒªTAB2
+0074 C0E0             67                     PUSH Acc
+0076 900092           68                     MOV DPTR,#TAB2
+0079 E534             69                     MOV A,034H
+007B 93               70                     MOVC A,@A+DPTR;²é±í
+007C F4               71                     CPL A;¡¾¹²Òõ¼«Çë×¢ÊÍ´Ë¾ä£¬¹²Ñô¼«Çë±£³Ö´Ë¾äÓÐÐ§¡¿
+007D F534             72                     MOV 034H,A;½á¹û±£´æÔÚ034HÖÐ
+007F D0E0             73                     POP Acc
+0081 22               74                     RET
+0082                  75             TAB1:
+0082 EEDEBE7E         76                     DB 0EEH,0DEH,0BEH,07EH;0,1,2,3
+0086 EDDDBD7D         77                     DB 0EDH,0DDH,0BDH,07DH;4,5,6,7
+008A EBDBBB7B         78                     DB 0EBH,0DBH,0BBH,07BH;8,9,A,B
+008E E7D7B777         79                     DB 0E7H,0D7H,0B7H,077H;C,D,E,F
+0092                  80             TAB2:;ÕâÊÇ¶ÎÂë±í
+0092 3F065B4F         81                     DB 03FH,006H,05BH,04FH,066H,06DH,07DH,007H,07FH,06FH;0-9
+0096 666D7D07                
+009A 7F6F                    
+009C 777C395E         82                     DB 077H,07CH,039H,05EH,079H,071H;A-F
+00A0 7971                    
+                      83     END
+A51 MACRO ASSEMBLER  EXP7                                                                 05/15/2015 23:35:51 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                   T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . . . . .  C ADDR   0017H   A   
+DELAYMSCIRCLE1 . . . . .  C ADDR   001CH   A   
+DELAYMSCIRCLE2 . . . . .  C ADDR   0021H   A   
+ENDPROCESSER . . . . . .  C ADDR   0037H   A   
+GETP1KEYPADTO3435. . . .  C ADDR   0032H   A   
+MAIN . . . . . . . . . .  C ADDR   0003H   A   
+MAINFUNCTION . . . . . .  C ADDR   000CH   A   
+NOTSEARCHFAILED. . . . .  C ADDR   0072H   A   
+P1 . . . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . . . .  D ADDR   00A0H   A   
+SEARCHKEYPADVALUE. . . .  C ADDR   0057H   A   
+SEARCHKEYPADVALUELOOP. .  C ADDR   005EH   A   
+SEARCHKEYPADVALUENOTTRUE  C ADDR   0069H   A   
+SP . . . . . . . . . . .  D ADDR   0081H   A   
+STARTPROCESSER . . . . .  C ADDR   003EH   A   
+TAB1 . . . . . . . . . .  C ADDR   0082H   A   
+TAB2 . . . . . . . . . .  C ADDR   0092H   A   
+TRANSFERNUMBERTOSIGNCODE  C ADDR   0074H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

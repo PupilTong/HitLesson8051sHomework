@@ -1,0 +1,87 @@
+C51 COMPILER V9.02   EXP6                                                                  05/24/2015 14:58:31 PAGE 1   
+
+
+C51 COMPILER V9.02, COMPILATION OF MODULE EXP6
+OBJECT MODULE PLACED IN Exp6.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE Exp6.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include<reg51.h>
+   2          #ifndef LCD_CHAR_1602_2005_4_9//自定义头文件
+   3          #define LCD_CHAR_1602_2005_4_9
+   4          #define uchar unsigned char
+   5          #define uint unsigned int
+   6          
+   7          sbit lcdrs = P1^0;
+   8          sbit lcdrw = P1^1;
+   9          sbit lcden = P1^2;
+  10          
+  11          unsigned char code first[]="Hello";
+  12          unsigned char code second[]="Welcome To China";
+  13          void delay(uint z){
+  14   1          uint x,y;
+  15   1              for(x=z;x>0;x--)
+  16   1              for(y=110;y>0;y--);
+  17   1      }
+  18          void write_com(uchar com){ //写入指令数据到LCD
+  19   1      
+  20   1           lcdrw=0;
+  21   1               lcdrs=0;
+  22   1               P0=com;
+  23   1               delay(5);
+  24   1               lcden=1;
+  25   1               delay(5);
+  26   1               lcden=0;
+  27   1      }
+  28          void write_data(uchar date){         //写入字符显示数据到LCD
+  29   1      
+  30   1           lcdrw=0;
+  31   1               lcdrs=1;
+  32   1               P0=date;
+  33   1               delay(5);
+  34   1               lcden=1;
+  35   1               delay(5);
+  36   1               lcden=0;
+  37   1      }
+  38           void init1602(){          //1602液晶初始化设定
+  39   1          lcdrw=0;
+  40   1              lcden=0;
+  41   1              write_com(0x3c);
+  42   1              write_com(0x0c);
+  43   1              write_com(0x06);
+  44   1              write_com(0x01);
+  45   1              write_com(0x80);
+  46   1      }
+  47          void clock_init(){
+  48   1              uchar i,j;
+  49   1              for(i=0;i<5;i++){
+  50   2                      write_data(first[i]);
+  51   2              }
+  52   1              write_com(0x80+0x40);
+  53   1              for(j=0;j<16;j++){
+  54   2                      write_data(second[j]);
+  55   2              }
+C51 COMPILER V9.02   EXP6                                                                  05/24/2015 14:58:31 PAGE 2   
+
+  56   1      }
+  57          void main(){
+  58   1              init1602();
+  59   1              clock_init();
+  60   1      }
+  61          
+*** WARNING C316 IN LINE 61 OF Exp6.C: unterminated conditionals
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    136    ----
+   CONSTANT SIZE    =     23    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

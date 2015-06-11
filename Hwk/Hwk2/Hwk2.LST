@@ -1,0 +1,108 @@
+A51 MACRO ASSEMBLER  HWK2                                                                 05/31/2015 16:38:16 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk2.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk2.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+0013                   3     ORG 0013H
+0013 021040            4             LJMP Int1Processer;
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758132            7                      MOV SP,#032H;
+1003 747F              8                      MOV A,#07fH;
+1005 1156              9                      ACALL InitialiseInt1;≥ı ºªØ÷–∂œ
+1007                  10                      MainFunction:
+1007                  11                             WaveLed:;¡˜ÀÆµ∆ƒ£ Ω
+1007 753108           12                                     MOV 031H,#08
+100A                  13                                     WaveToR:
+100A F5A0             14                                             MOV P2,A;
+100C 03               15                                             RR A;
+100D 753019           16                                             MOV 030H,#019H;
+1010 1125             17                                             ACALL DelayMs;
+1012 D531F5           18                                             DJNZ 031H,WaveToR
+1015 753108           19                                     MOV 031H,#08
+1018                  20                                     WaveToL:
+1018 F5A0             21                                             MOV P2,A;
+101A 23               22                                             RL A;
+101B 753019           23                                             MOV 030H,#019H;
+101E 1125             24                                             ACALL DelayMs;
+1020 D531F5           25                                             DJNZ 031H,WaveToL
+1023 80E2             26                                     SJMP MainFunction;
+1025                  27             DelayMs:      ;—” ±…œœﬁ256ms£¨ŒÛ≤Ó√ø¥Œ8us£¨ŒÛ≤Ó¿¥◊‘”⁄LCALL°¢∑µªÿ÷∏¡Ó°¢R7µƒ±£ª§∫Õª÷∏
+                             ¥£¨«Î π”√LCALL°¢SCALL∑√Œ ±æ◊”≥Ã–Ú,°æ«ÎΩ´≤Œ ∑≈‘⁄30H÷–°ø,±æÃı÷∏¡Ó≤ª∫¨œ÷≥°±£ª§£¨±æÃı÷∏¡Ó–Ë“™R7&R6¥Ê¥¢∆˜£°
+1025 C030             28                     PUSH 030H;±£ª§30H,2us
+1027 75305A           29                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+102A                  30                     DelayMsCircle1:;9992US
+102A C030             31                             PUSH 030H;2us
+102C 753034           32                             MOV 030H,#034H;DEC=52,1us
+102F                  33                             DelayMsCircle2:
+102F D530FD           34                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1032 D030             35                             POP 030H;2us
+1034 D530F3           36                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircle÷¥––“ª¥Œ–
+                             Ë“™4us,—≠ª∑4*249=996US
+1037 D030             37                     POP 030H;ª÷∏¥30H,2us
+1039 00               38                     NOP;1US
+103A 00               39                     NOP;1US
+103B 00               40                     NOP;1US
+103C D530E6           41                     DJNZ 030H,DelayMS                           ;◊™“∆£¨2us
+103F 22               42                     RET                       ;2us
+1040                  43             Int1Processer:
+1040                  44                     FlashLed:;…¡À∏ƒ£ Ω
+1040 C0E0             45                             PUSH ACC;
+1042 74AA             46                             MOV A,#0AAH
+1044 F5A0             47                             MOV P2,A
+1046 03               48                             RR A
+1047 753032           49                             MOV 030H,#050;
+104A 1125             50                             ACALL DelayMs;
+104C F5A0             51                             MOV P2,A
+104E 753032           52                             MOV 030H,#050;
+1051 1125             53                             ACALL DelayMs;
+1053 D0E0             54                             POP ACC;
+1055 32               55                     RETI;
+1056                  56             InitialiseInt1:
+A51 MACRO ASSEMBLER  HWK2                                                                 05/31/2015 16:38:16 PAGE     2
+
+1056 C28A             57                     CLR IT1;µÁ∆Ω¥•∑¢∑Ω Ω
+1058 D2BA             58                     SETB PX1;∏ﬂ”≈œ»º∂
+105A D2AA             59                     SETB EX1;int1÷–∂œ‘ –Ì
+105C D2AF             60                     SETB EA ;◊‹÷–∂œ‘ –Ì
+105E 22               61                     RET
+                      62                     
+                      63     END
+A51 MACRO ASSEMBLER  HWK2                                                                 05/31/2015 16:38:16 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . .  C ADDR   1025H   A   
+DELAYMSCIRCLE1 . .  C ADDR   102AH   A   
+DELAYMSCIRCLE2 . .  C ADDR   102FH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX1. . . . . . . .  B ADDR   00A8H.2 A   
+FLASHLED . . . . .  C ADDR   1040H   A   
+INITIALISEINT1 . .  C ADDR   1056H   A   
+INT1PROCESSER. . .  C ADDR   1040H   A   
+IT1. . . . . . . .  B ADDR   0088H.2 A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1007H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PX1. . . . . . . .  B ADDR   00B8H.2 A   
+SP . . . . . . . .  D ADDR   0081H   A   
+WAVELED. . . . . .  C ADDR   1007H   A   
+WAVETOL. . . . . .  C ADDR   1018H   A   
+WAVETOR. . . . . .  C ADDR   100AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

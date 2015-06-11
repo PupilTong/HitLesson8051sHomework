@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"Exp6.obj" 
+TO "Exp6" 
+RAMSIZE(256) 

@@ -1,0 +1,140 @@
+C51 COMPILER V9.52.0.0   HWK10                                                             06/04/2015 18:51:53 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE HWK10
+OBJECT MODULE PLACED IN Hwk10.OBJ
+COMPILER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\C51.EXE Hwk10.C BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF Hwk10.C: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include<reg51.h>
+   2          sbit lcdrs = P2^0;
+   3          sbit lcdrw = P2^1;
+   4          sbit lcden = P2^2;
+   5          sbit Sounder=P2^3;
+   6          unsigned char CurrentAddress;
+   7          unsigned char code first[]=" Powered by Why  ";
+   8          unsigned char code second[]="Welcome To China";
+   9          void delay(unsigned int z){
+  10   1        unsigned int x, y;
+  11   1        for(x=z;x>0;x--)
+  12   1        for(y=110;y>0;y--);
+  13   1      }
+  14          void WriteCom(unsigned char com){ //写入指令数据到LCD
+  15   1        CurrentAddress=com;
+  16   1        lcdrw=0;
+  17   1        lcdrs=0;
+  18   1        P0=com;
+  19   1        delay(5);
+  20   1        lcden=1;
+  21   1        delay(5);
+  22   1        lcden=0;
+  23   1      }
+  24          void WriteData(unsigned char words){       //写入字符显示数据到LCD
+  25   1        CurrentAddress++;
+  26   1        lcdrw=0;
+  27   1        lcdrs=1;
+  28   1        P0=words;
+  29   1        delay(5);
+  30   1        lcden=1;
+  31   1        delay(5);
+  32   1        lcden=0;
+  33   1      }
+  34          void SendData(unsigned int Line,unsigned char* String){//发送字符串信息
+  35   1        unsigned char i;
+  36   1        switch(Line){
+  37   2          case 1:
+  38   2            WriteCom(0x80);
+  39   2            for(i=0; i<16 &&String[i]!='\n';i++){
+  40   3              WriteData(String[i]);
+  41   3            }
+  42   2            break;
+  43   2          case 2:
+  44   2            WriteCom(0x80+0x40);
+  45   2            for(i=0; i<16 &&String[i]!='\n';i++){
+  46   3              WriteData(String[i]);
+  47   3            }
+  48   2        }
+  49   1      }
+  50          void init1602(){     //1602液晶初始化设定
+  51   1        lcdrw=0;
+  52   1        lcden=0;
+  53   1        WriteCom(0x3c);
+  54   1        WriteCom(0x0c);
+C51 COMPILER V9.52.0.0   HWK10                                                             06/04/2015 18:51:53 PAGE 2   
+
+  55   1        WriteCom(0x06);
+  56   1        WriteCom(0x01);
+  57   1      }
+  58          void Delete(){//向前删除
+  59   1        CurrentAddress--;
+  60   1        WriteCom(CurrentAddress);
+  61   1        WriteData(' ');
+  62   1        CurrentAddress--;
+  63   1        WriteCom(CurrentAddress);
+  64   1      }
+  65          void Reset(){//重新初始化LCD
+  66   1        init1602();
+  67   1        SendData(1,first);
+  68   1        WriteCom(0x80+0x40+0x03);//往→3个字
+  69   1      }
+  70          void Voice(unsigned char Tone){
+  71   1        unsigned int i;
+  72   1        Sounder=0;
+  73   1        for(i=255/Tone;i>0;i--){
+  74   2          Sounder=~Sounder;
+  75   2          delay(Tone);
+  76   2        }
+  77   1        Sounder=0;
+  78   1      }
+  79          void main(){
+  80   1        unsigned char Keyboard1,Keyboard2;
+  81   1        Reset();
+  82   1        P1=0xF0;
+  83   1        while(1){
+  84   2          if(P1!=0xF0){//线反转法
+  85   3            delay(10);
+  86   3            if(P1!=0xF0){
+  87   4              Keyboard1=P1;
+  88   4              P1=0x0F;
+  89   4              Keyboard2=P1;
+  90   4              Keyboard1=Keyboard1|Keyboard2;
+  91   4              switch(Keyboard1){
+  92   5                case 0xEE:WriteData('2');Voice(1);break;
+  93   5                case 0xDE:WriteData('1');Voice(2);break;
+  94   5                case 0xBE:WriteData('0');Voice(3);break;
+  95   5                case 0xED:WriteData('5');Voice(1);break;
+  96   5                case 0xDD:WriteData('4');Voice(2);break;
+  97   5                case 0xBD:WriteData('3');Voice(3);break;
+  98   5                case 0xEB:WriteData('8');Voice(1);break;
+  99   5                case 0xDB:WriteData('7');Voice(2);break;
+ 100   5                case 0xBB:WriteData('6');Voice(3);break;
+ 101   5                case 0xE7:Reset();Voice(4);break;
+ 102   5                case 0xD7:Delete();Voice(4);break;//
+ 103   5                case 0xB7:WriteData('9');Voice(1);break;
+ 104   5              }
+ 105   4              P1=0xF0;
+ 106   4              while(P1!=0xF0);
+ 107   4            }
+ 108   3          }
+ 109   2        }
+ 110   1      }
+ 111          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    435    ----
+   CONSTANT SIZE    =     35    ----
+C51 COMPILER V9.52.0.0   HWK10                                                             06/04/2015 18:51:53 PAGE 3   
+
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

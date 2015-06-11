@@ -1,0 +1,31 @@
+A51 MACRO ASSEMBLER  AAA                                                                  04/15/2015 15:46:10 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+NO OBJECT MODULE REQUESTED
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE AAA.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1             ORG 0000H
+0000                   2             LJMP,MAIN
+*** _____________________________________^
+*** ERROR #A15 IN 2 (AAA.a51, LINE 2): MISSING FACTOR
+1000                   3             ORG 1000H
+1000 7401              4     MAIN:MOV A,#01H
+                       5     END
+A51 MACRO ASSEMBLER  AAA                                                                  04/15/2015 15:46:10 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+MAIN . . . . . . .  C ADDR   1000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 1 ERROR(S)

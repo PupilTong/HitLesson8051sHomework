@@ -1,0 +1,109 @@
+A51 MACRO ASSEMBLER  EXP3                                                                 05/04/2015 22:37:55 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp3.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp3.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+                       3     ;ORG 0003H
+                       4             ;LJMP Int0Processer;
+000B                   5     ORG 000BH
+000B 021024            6             LJMP Timer0Processer
+1000                   7     ORG 1000H
+1000                   8             MAIN:
+1000 7590FE            9                      MOV P1,#0FEH;
+1003 E5A0             10                      MOV A,P2;
+1005 B4FEF8           11                      CJNE A,#0FEH,MAIN;≤ªµ»”⁄01hÀµ√˜√ª”–∞¥œ¬
+1008 753005           12                      MOV 030H,#05H;
+100B 1143             13                      ACALL DelayMs;—”≥Ÿ50msœ˚∂∂
+100D E5A0             14                      MOV A,P2;
+100F B4FEEE           15                      CJNE A,#0FEH,MAIN;≤ªµ»”⁄01hÀµ√˜√ª”–∞¥œ¬, «∂∂∂Ø
+1012 758134           16                      MOV SP,#034H;030—”≥Ÿ¥´≤Œ£¨031∂® ±÷–∂œ¥Œ £¨032÷–∂œµÕ∞ÀŒª£¨033÷–∂œ∏ﬂ∞ÀŒª
+1015 75310A           17                      MOV 031H,#0AH;∂® ±10¥Œ
+1018 7532B0           18                      MOV 032H,#0B0H;
+101B 75333C           19                      MOV 033H,#03CH;∂® ±100ms
+101E 1133             20                      ACALL InitialiseTimer0;≥ı ºªØ÷–∂œ
+1020 7D00             21                      MOV R5,#00H;R5=0‘Ú‘À––
+1022                  22                      MainFunction:
+1022 80FE             23                                     SJMP MainFunction;
+1024                  24             Timer0Processer:
+1024 85328A           25                     MOV TL0,032H;
+1027 85338C           26                     MOV TH0,033H;÷ÿ–¬◊∞»Î≥ı÷µ
+102A D53105           27                     DJNZ 031H,Return;»Áπ˚√ª”–—≠ª∑µΩ¥Œ æÕ÷±Ω”∑µªÿ
+102D 75310A           28                     MOV 031H,#0AH;÷ÿ–¬∂® ±10¥Œ
+1030 B290             29                     CPL P1.0;µΩ¡À—≠ª∑¥Œ £¨P1.0ø⁄»°∑¥
+1032                  30                     Return:
+1032 32               31                             RETI;
+1033                  32             InitialiseTimer0:
+1033 758901           33                     MOV TMOD,#01H;…Ë÷√T0π§◊˜‘⁄∑Ω Ω1
+1036 85328A           34                     MOV TL0,032H;
+1039 85338C           35                     MOV TH0,033H;◊∞»Î≥ı÷µ
+103C D2A9             36                     SETB ET0;‘ –ÌT0÷–∂œ
+103E D2AF             37                     SETB EA;◊‹÷–∂œ
+1040 D28C             38                     SETB TR0;∆Ù∂ØT0
+1042 22               39                     RET
+                      40             ;Int0Processer:
+                      41                     ;RETI;
+                      42             ;InitialiseInt0:
+                      43                     ;CLR IT0;µÁ∆Ω¥•∑¢∑Ω Ω
+                      44                     ;SETB PX0;∏ﬂ”≈œ»º∂
+                      45                     ;SETB EX0;int0÷–∂œ‘ –Ì
+                      46                     ;SETB EA ;◊‹÷–∂œ‘ –Ì
+                      47                     ;RET
+1043                  48             DelayMs:      ;—” ±…œœﬁ256ms£¨ŒÛ≤Ó√ø¥Œ8us£¨ŒÛ≤Ó¿¥◊‘”⁄LCALL°¢∑µªÿ÷∏¡Ó°¢R7µƒ±£ª§∫Õª÷∏
+                             ¥£¨«Î π”√LCALL°¢SCALL∑√Œ ±æ◊”≥Ã–Ú,°æ«ÎΩ´≤Œ ∑≈‘⁄30H÷–°ø,±æÃı÷∏¡Ó≤ª∫¨œ÷≥°±£ª§£¨±æÃı÷∏¡Ó–Ë“™R7&R6¥Ê¥¢∆˜£°
+1043 C030             49                     PUSH 030H;±£ª§30H,2us
+1045 75305A           50                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1048                  51                     DelayMsCircle1:;9992US
+1048 C030             52                             PUSH 030H;2us
+104A 753034           53                             MOV 030H,#034H;DEC=52,1us
+104D                  54                             DelayMsCircle2:
+104D D530FD           55                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1050 D030             56                             POP 030H;2us
+1052 D530F3           57                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircle÷¥––“ª¥Œ–
+A51 MACRO ASSEMBLER  EXP3                                                                 05/04/2015 22:37:55 PAGE     2
+
+                             Ë“™4us,—≠ª∑4*249=996US
+1055 D030             58                     POP 030H;ª÷∏¥30H,2us
+1057 00               59                     NOP;1US
+1058 00               60                     NOP;1US
+1059 00               61                     NOP;1US
+105A D530E6           62                     DJNZ 030H,DelayMS                           ;◊™“∆£¨2us
+105D 22               63                     RET                       ;2us
+                      64                     
+                      65     END
+A51 MACRO ASSEMBLER  EXP3                                                                 05/04/2015 22:37:55 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAYMS. . . . . .  C ADDR   1043H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1048H   A   
+DELAYMSCIRCLE2 . .  C ADDR   104DH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+INITIALISETIMER0 .  C ADDR   1033H   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1022H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+RETURN . . . . . .  C ADDR   1032H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0PROCESSER. .  C ADDR   1024H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,206 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        05/24/2015  14:58:31  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL\C51\BIN\BL51.EXE STARTUP.obj, Exp6.obj TO Exp6 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  Exp6.obj (EXP6)
+
+
+LINK MAP OF MODULE:  Exp6 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     07FDH                  *** GAP ***
+            CODE    0800H     002DH     UNIT         ?PR?_DELAY?EXP6
+            CODE    082DH     0024H     UNIT         ?PR?CLOCK_INIT?EXP6
+            CODE    0851H     001DH     UNIT         ?PR?INIT1602?EXP6
+            CODE    086EH     0017H     UNIT         ?CO?EXP6
+            CODE    0885H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0891H     000AH     UNIT         ?PR?_WRITE_COM?EXP6
+            CODE    089BH     000AH     UNIT         ?PR?_WRITE_DATA?EXP6
+            CODE    08A5H     0006H     UNIT         ?PR?MAIN?EXP6
+
+
+
+OVERLAY MAP OF MODULE:   Exp6 (?C_STARTUP)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?EXP6
+
+?PR?MAIN?EXP6
+  +--> ?PR?INIT1602?EXP6
+  +--> ?PR?CLOCK_INIT?EXP6
+
+?PR?INIT1602?EXP6
+  +--> ?PR?_WRITE_COM?EXP6
+
+?PR?_WRITE_COM?EXP6
+  +--> ?PR?_DELAY?EXP6
+
+?PR?CLOCK_INIT?EXP6
+  +--> ?CO?EXP6
+  +--> ?PR?_WRITE_DATA?EXP6
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/24/2015  14:58:31  PAGE 2
+
+
+  +--> ?PR?_WRITE_COM?EXP6
+
+?PR?_WRITE_DATA?EXP6
+  +--> ?PR?_DELAY?EXP6
+
+
+
+SYMBOL TABLE OF MODULE:  Exp6 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0885H         SEGMENT       ?C_C51STARTUP
+  I:0008H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0888H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0885H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0885H         LINE#         133
+  C:0887H         LINE#         134
+  C:0888H         LINE#         135
+  C:0889H         LINE#         136
+  C:088BH         LINE#         185
+  C:088EH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        EXP6
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:0874H         PUBLIC        second
+  D:0080H         PUBLIC        P0
+  C:0851H         PUBLIC        init1602
+  D:0090H         PUBLIC        P1
+  B:0090H.2       PUBLIC        lcden
+  C:080FH         PUBLIC        _delay
+  B:0090H.0       PUBLIC        lcdrs
+  B:0090H.1       PUBLIC        lcdrw
+  C:082DH         PUBLIC        clock_init
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/24/2015  14:58:31  PAGE 3
+
+
+  C:08A5H         PUBLIC        main
+  C:089BH         PUBLIC        _write_data
+  C:086EH         PUBLIC        first
+  C:0891H         PUBLIC        _write_com
+  -------         PROC          L?0021
+  -------         ENDPROC       L?0021
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0006H         SYMBOL        x
+  D:0004H         SYMBOL        y
+  -------         ENDDO         
+  C:080FH         LINE#         13
+  C:080FH         LINE#         15
+  C:0818H         LINE#         16
+  C:082CH         LINE#         17
+  -------         ENDPROC       _DELAY
+  -------         PROC          _WRITE_COM
+  D:0007H         SYMBOL        com
+  C:0891H         LINE#         18
+  C:0891H         LINE#         20
+  C:0893H         LINE#         21
+  C:0895H         LINE#         22
+  C:0895H         LINE#         23
+  C:0895H         LINE#         24
+  C:0895H         LINE#         25
+  C:0898H         LINE#         26
+  C:089AH         LINE#         27
+  -------         ENDPROC       _WRITE_COM
+  -------         PROC          _WRITE_DATA
+  D:0007H         SYMBOL        date
+  C:089BH         LINE#         28
+  C:089BH         LINE#         30
+  C:089DH         LINE#         31
+  C:089FH         LINE#         32
+  C:089FH         LINE#         33
+  C:089FH         LINE#         34
+  C:089FH         LINE#         35
+  C:08A2H         LINE#         36
+  C:08A4H         LINE#         37
+  -------         ENDPROC       _WRITE_DATA
+  -------         PROC          INIT1602
+  C:0851H         LINE#         38
+  C:0851H         LINE#         39
+  C:0853H         LINE#         40
+  C:0855H         LINE#         41
+  C:085AH         LINE#         42
+  C:085FH         LINE#         43
+  C:0864H         LINE#         44
+  C:0869H         LINE#         45
+  -------         ENDPROC       INIT1602
+  -------         PROC          CLOCK_INIT
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0003H         SYMBOL        j
+  -------         ENDDO         
+  C:082DH         LINE#         47
+BL51 BANKED LINKER/LOCATER V6.22                                                      05/24/2015  14:58:31  PAGE 4
+
+
+  C:082DH         LINE#         49
+  C:082FH         LINE#         50
+  C:0838H         LINE#         51
+  C:083CH         LINE#         52
+  C:0841H         LINE#         53
+  C:0843H         LINE#         54
+  C:084CH         LINE#         55
+  C:0850H         LINE#         56
+  -------         ENDPROC       CLOCK_INIT
+  -------         PROC          MAIN
+  C:08A5H         LINE#         57
+  C:08A5H         LINE#         58
+  C:08A8H         LINE#         59
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        EXP6
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00AEH BYTE ( 8%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=174
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

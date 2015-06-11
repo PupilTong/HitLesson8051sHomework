@@ -1,0 +1,64 @@
+A51 MACRO ASSEMBLER  EXP9                                                                 05/16/2015 21:22:41 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp9.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp9.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+1000                   3     ORG 1000H
+1000                   4             MAIN:
+1000 7400              5                     MOV A,#00H;
+1002                   6                     LOOP:
+1002 C2A0              7                             CLR P2.0
+1004 C2A1              8                             CLR P2.1
+1006 F590              9                             MOV P1,A
+1008 D2A0             10                             SETB P2.0
+100A D2A1             11                             SETB P2.1
+100C 04               12                             INC A
+100D 753005           13                             MOV 030H,#05H
+1010 1114             14                             ACALL DelayMs
+1012 80EE             15                             SJMP LOOP
+1014                  16             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+1014 C030             17                     PUSH 030H;±£»¤30H,2us
+1016 75305A           18                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1019                  19                     DelayMsCircle1:;9992US
+1019 C030             20                             PUSH 030H;2us
+101B 753034           21                             MOV 030H,#034H;DEC=52,1us
+101E                  22                             DelayMsCircle2:
+101E D530FD           23                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1021 D030             24                             POP 030H;2us
+1023 D530F3           25                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+1026 D030             26                     POP 030H;»Ö¸´30H,2us
+1028 00               27                     NOP;1US
+1029 00               28                     NOP;1US
+102A 00               29                     NOP;1US
+102B D530E6           30                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+102E 22               31                     RET                       ;2us
+                      32     END
+A51 MACRO ASSEMBLER  EXP9                                                                 05/16/2015 21:22:41 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAYMS. . . . . .  C ADDR   1014H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1019H   A   
+DELAYMSCIRCLE2 . .  C ADDR   101EH   A   
+LOOP . . . . . . .  C ADDR   1002H   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

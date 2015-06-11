@@ -1,0 +1,161 @@
+A51 MACRO ASSEMBLER  HWK4                                                                 06/01/2015 19:31:45 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk4.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk4.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+000B                   3     ORG 000BH
+000B 02105E            4             LJMP Timer0Processer;ÓÃ×÷¼ÆÊ·þÎñÏß³Ì
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758139            7                      MOV SP,#039H;30ÑÓÊ±²ÎÊ£¬31¶¨Ê±´ÎÊ£¬32TL0£¬33TH0£¬34¶ÎÂë²éÑ¯²ÎÊ£¬35±£´æ¼ÆÊ£
+                             ¬36P0ÏÔÊ¾£¬37P2ÏÔÊ¾,38°´ÏÂ´ÎÊ
+1003 118A              8                      ACALL InitialiseTimer0
+1005 753800            9                      MOV 038H,#0H
+1008                  10                      MainFunction:
+1008 30B730           11                             JNB P3.7,Check
+100B E535             12                             MOV A,035H
+100D B46407           13                             CJNE A,#100,RUN
+1010 753802           14                             MOV 038H,#02;Í£Ö¹¼ÆÊ±ÖÃ±êÖ¾Î»
+1013 C2AF             15                             CLR EA
+1015 80F1             16                             SJMP MainFunction;
+1017                  17                     RUN:
+1017 75F00A           18                             MOV B,#10
+101A 84               19                             DIV AB
+101B 85F034           20                             MOV 034H,B;È¡¸öÎ»
+101E 11A5             21                             ACALL TransferNumberToSignCode;µÍËÄÎ»×ª»»
+1020 853437           22                             MOV 037H,034H;±£´æµÍËÄÎ»¶ÎÂë½á¹û
+1023 F534             23                             MOV 034H,A;
+1025 11A5             24                             ACALL TransferNumberToSignCode;¸ßËÄÎ»×ª»»
+1027 853436           25                             MOV 036H,034H
+102A 433680           26                             ORL 036H,#80H
+102D 758000           27                             MOV P0,#00H
+1030 853680           28                             MOV P0,036H
+1033 75A000           29                             MOV P2,#00H
+1036 8537A0           30                             MOV P2,037H
+1039 80CD             31                             SJMP MainFunction
+103B                  32                     Check:
+103B 753002           33                             MOV 030H,#02H
+103E 116F             34                             ACALL DelayMs;Ïû¶¶
+1040 30B702           35                             JNB P3.7,Start
+1043 80C3             36                             SJMP MainFunction
+1045                  37                     Start:
+1045 0538             38                             INC 038H
+1047 E538             39                             MOV A,038H
+1049 B4030B           40                             CJNE A,#03H,RETU
+104C 753500           41                                     MOV 035H,#0H
+104F 753800           42                                     MOV 038H,#0
+1052 30B7FD           43                             WAIT:JNB P3.7,WAIT;µÈ´ËÉ¿ª
+1055 80B1             44                             SJMP MainFunction
+1057                  45                             RETU:
+1057 B2AF             46                                     CPL EA
+1059 30B7F6           47                                     JNB P3.7,WAIT;µÈ´ËÉ¿ª
+105C 80AA             48                                     SJMP MainFunction
+105E                  49             Timer0Processer:
+105E 85328A           50                     MOV TL0,032H;2us
+1061 85338C           51                     MOV TH0,033H;2us×°Èë³õÖµ
+1064 D53106           52                     DJNZ 031H,Return;Èç¹ûÃ»ÓÐÑ­»·µ½´ÎÊ¾ÍÖ±½Ó·µ»Ø2us
+1067 753102           53                             MOV 031H,#02H;ÖØÐÂ¶¨Ê±2´Î2us
+106A 0535             54                             INC 035H;1us
+106C 00               55                             NOP ;1US
+106D                  56                     Return:
+106D 32               57                             RETI;2us
+A51 MACRO ASSEMBLER  HWK4                                                                 06/01/2015 19:31:45 PAGE     2
+
+106E                  58             FlashSigner:
+106E 22               59                     RET
+106F                  60             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+106F C030             61                     PUSH 030H;±£»¤30H,2us
+1071 75305A           62                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1074                  63                     DelayMsCircle1:;9992US
+1074 C030             64                             PUSH 030H;2us
+1076 753034           65                             MOV 030H,#034H;DEC=52,1us
+1079                  66                             DelayMsCircle2:
+1079 D530FD           67                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+107C D030             68                             POP 030H;2us
+107E D530F3           69                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+1081 D030             70                     POP 030H;»Ö¸´30H,2us
+1083 00               71                     NOP;1US
+1084 00               72                     NOP;1US
+1085 00               73                     NOP;1US
+1086 D530E6           74                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+1089 22               75                     RET                       ;2us
+108A                  76             InitialiseTimer0:
+108A 753102           77                     MOV 031H,#02H;¶¨Ê±2´Î
+108D 7532BA           78                     MOV 032H,#0BAH;
+1090 75333C           79                     MOV 033H,#03CH;15546,49990us
+1093 758901           80                     MOV TMOD,#01H;ÉèÖÃT0¹¤×÷ÔÚ·½Ê½1
+1096 85328A           81                     MOV TL0,032H;
+1099 85338C           82                     MOV TH0,033H;×°Èë³õÖµ
+109C D2B9             83                     SETB PT0;¸ßÓÅÏÈ¼¶
+109E D2A9             84                     SETB ET0;ÔÊÐíT0ÖÐ¶Ï
+10A0 D28C             85                     SETB TR0;Æô¶¯T0
+10A2 C2AF             86                     CLR EA;¹Ø±Õ×ÜÖÐ¶Ï
+10A4 22               87                     RET
+10A5                  88             TransferNumberToSignCode:;Ê×Ö×ª»»¶ÎÂë;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR
+                             ,A£¬ÐèÒªTAB2
+10A5 C0E0             89                     PUSH Acc
+10A7 9010B2           90                     MOV DPTR,#TAB2
+10AA E534             91                     MOV A,034H
+10AC 93               92                     MOVC A,@A+DPTR;²é±í
+                      93                     ;CPL A;¡¾¹²Òõ¼«Çë×¢ÊÍ´Ë¾ä£¬¹²Ñô¼«Çë±£³Ö´Ë¾äÓÐÐ§¡¿
+10AD F534             94                     MOV 034H,A;½á¹û±£´æÔÚ034HÖÐ
+10AF D0E0             95                     POP Acc
+10B1 22               96                     RET
+10B2                  97             TAB2:;ÕâÊÇ¶ÎÂë±í
+10B2 3F065B4F         98                     DB 03FH,006H,05BH,04FH,066H,06DH,07DH,007H,07FH,06FH;0-9
+10B6 666D7D07                
+10BA 7F6F                    
+10BC 777C395E         99                     DB 077H,07CH,039H,05EH,079H,071H;A-F
+10C0 7971                    
+                     100     END
+A51 MACRO ASSEMBLER  HWK4                                                                 06/01/2015 19:31:45 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                   T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . . . . .  D ADDR   00E0H   A   
+B. . . . . . . . . . . .  D ADDR   00F0H   A   
+CHECK. . . . . . . . . .  C ADDR   103BH   A   
+DELAYMS. . . . . . . . .  C ADDR   106FH   A   
+DELAYMSCIRCLE1 . . . . .  C ADDR   1074H   A   
+DELAYMSCIRCLE2 . . . . .  C ADDR   1079H   A   
+EA . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . . . . .  B ADDR   00A8H.1 A   
+FLASHSIGNER. . . . . . .  C ADDR   106EH   A   
+INITIALISETIMER0 . . . .  C ADDR   108AH   A   
+MAIN . . . . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . . . . .  C ADDR   1008H   A   
+P0 . . . . . . . . . . .  D ADDR   0080H   A   
+P2 . . . . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . . . . .  D ADDR   00B0H   A   
+PT0. . . . . . . . . . .  B ADDR   00B8H.1 A   
+RETU . . . . . . . . . .  C ADDR   1057H   A   
+RETURN . . . . . . . . .  C ADDR   106DH   A   
+RUN. . . . . . . . . . .  C ADDR   1017H   A   
+SP . . . . . . . . . . .  D ADDR   0081H   A   
+START. . . . . . . . . .  C ADDR   1045H   A   
+TAB2 . . . . . . . . . .  C ADDR   10B2H   A   
+TH0. . . . . . . . . . .  D ADDR   008CH   A   
+TIMER0PROCESSER. . . . .  C ADDR   105EH   A   
+TL0. . . . . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . . . . .  B ADDR   0088H.4 A   
+TRANSFERNUMBERTOSIGNCODE  C ADDR   10A5H   A   
+WAIT . . . . . . . . . .  C ADDR   1052H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

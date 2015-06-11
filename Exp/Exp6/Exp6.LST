@@ -1,0 +1,39 @@
+A51 MACRO ASSEMBLER  EXP6                                                                 05/16/2015 11:43:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp6.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp6.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+1000                   3     ORG 1000H
+1000                   4             MAIN:
+1000 907FFF            5                     MOV DPTR,#7FFFH;
+1003 7482              6                     MOV A,#82H
+1005 F0                7                     MOVX @DPTR,A
+1006                   8                     MainFunction:
+1006 907FFD            9                             MOV DPTR,#7FFDH
+1009 E0               10                             MOVX A,@DPTR
+100A 907FFC           11                             MOV DPTR,#7FFCH
+100D F0               12                             MOVX @DPTR,A
+100E 80F6             13                             SJMP MainFunction
+                      14     END
+A51 MACRO ASSEMBLER  EXP6                                                                 05/16/2015 11:43:51 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1006H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

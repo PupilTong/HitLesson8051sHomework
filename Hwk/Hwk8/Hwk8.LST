@@ -1,0 +1,110 @@
+C51 COMPILER V9.52.0.0   HWK8                                                              06/05/2015 15:45:39 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE HWK8
+OBJECT MODULE PLACED IN Hwk8.OBJ
+COMPILER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\C51.EXE Hwk8.c BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF Hwk8.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include<reg51.h>
+   2          #include<DS18B20.h>
+   3          #define SignPort P2 
+   4          sbit SignSelect0=P1^0;
+   5          sbit SignSelect1=P1^1;
+   6          sbit SignSelect2=P1^2;
+   7          sbit SignSelect3=P1^3;
+   8          unsigned char data TempBuf[4]=0;
+   9          unsigned int SignInt=0;
+  10          
+  11          void delay(unsigned int z){
+  12   1        unsigned int x, y;
+  13   1        for(x=z;x>0;x--)
+  14   1        for(y=110;y>0;y--);
+  15   1      }
+  16          void InitialiseTimer0(){
+  17   1        TMOD=0x02;//设置T0工作在方式2
+  18   1        TL0=0x00;
+  19   1        TH0=0x00;//装入初值
+  20   1        PT0=0;//低优先级
+  21   1        ET0=1;//允许T0中断
+  22   1        TR0=1;//启动T0
+  23   1        EA=1;//总中断
+  24   1      }
+  25          unsigned char TransferNumberToSignCode(unsigned int Number){
+  26   1        unsigned char Return;
+  27   1        switch(Number){
+  28   2          case 0:Return=0x3f;break;
+  29   2          case 1:Return=0x06;break;
+  30   2          case 2:Return=0x5b;break;
+  31   2          case 3:Return=0x4f;break;
+  32   2          case 4:Return=0x66;break;
+  33   2          case 5:Return=0x6d;break;
+  34   2          case 6:Return=0x7d;break;
+  35   2          case 7:Return=0x07;break;
+  36   2          case 8:Return=0x7f;break;
+  37   2          case 9:Return=0x6f;break;
+  38   2          case 0xa:Return=0x77;break;
+  39   2          case 0xb:Return=0x7c;break;
+  40   2          case 0xc:Return=0x39;break;
+  41   2          case 0xd:Return=0x5e;break;
+  42   2          case 0xe:Return=0x79;break;
+  43   2          case 0xf:Return=0x71;break;
+  44   2        }
+  45   1        Return=~Return;//共阳极请取消注释
+  46   1        return(Return);
+  47   1      }
+  48          void Timer0Processer(void) interrupt 1{
+  49   1        SignPort=0xff;
+  50   1        SignSelect0=0;
+  51   1        SignSelect1=0;
+  52   1        SignSelect2=0;
+  53   1        SignSelect3=0;
+  54   1        switch(SignInt){
+C51 COMPILER V9.52.0.0   HWK8                                                              06/05/2015 15:45:39 PAGE 2   
+
+  55   2          case 0:
+  56   2            SignSelect0=~SignSelect0;
+  57   2            SignPort=TransferNumberToSignCode(TempBuf[0]);
+  58   2            break;
+  59   2          case 1:
+  60   2            SignSelect1=~SignSelect1;
+  61   2            SignPort=TransferNumberToSignCode(TempBuf[1])&0x7F;//点亮小数点
+  62   2            break;
+  63   2          case 2:
+  64   2            SignSelect2=~SignSelect2;
+  65   2            SignPort=TransferNumberToSignCode(TempBuf[2]);
+  66   2            break;
+  67   2          case 3:
+  68   2            SignSelect3=~SignSelect3;
+  69   2            SignPort=TransferNumberToSignCode(TempBuf[3]);
+  70   2            break;
+  71   2        }
+  72   1        SignInt++;
+  73   1        if(SignInt==4){
+  74   2          SignInt=0;
+  75   2        }
+  76   1      }
+  77          void main(){
+  78   1        InitialiseTimer0();
+  79   1        while(1){
+  80   2          Temperaturepro(TempBuf);
+  81   2          delay(100);
+  82   2        }
+  83   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    323    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      6    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,149 @@
+A51 MACRO ASSEMBLER  HWK6                                                                 06/02/2015 12:52:33 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk6.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk6.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+000B                   3     ORG 000BH
+000B 021043            4             LJMP Timer0Processer;ÓÃ×÷¼ÆÊ·þÎñÏß³Ì
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758136            7                      MOV SP,#036H;30ÑÓÊ±²ÎÊ£¬31¶¨Ê±´ÎÊ£¬32TL0£¬33TH0£¬034¶¨Ê±¼ÆÊ,35Ïàµ±ÓÚi
+1003 D2A6              8                      SETB P2.6 ;IÎª0Ê±Ê±¸ßµçÆ½
+1005 D2A7              9                      SETB P2.7
+1007 753500           10                      MOV 035H,#0
+100A 118F             11                      ACALL InitialiseTimer0
+100C                  12                      MainFunction:
+100C 30A020           13                             JNB P2.0,Check
+100F E535             14                             MOV A,035H
+1011 B40104           15                             CJNE A,#1,NOT1
+1014 C2A6             16                                     CLR P2.6;ÊÇ1£¬iÎª1Ê±AµÍµçÆ½
+1016 80F4             17                                     SJMP MainFunction
+1018                  18                             NOT1:
+1018 B40206           19                                     CJNE A,#2,NOT2
+101B D2A6             20                                             SETB P2.6;ÊÇ2£¬iÎª2ÊÇA¸ßBµÍ
+101D C2A7             21                                             CLR P2.7
+101F 80EB             22                                             SJMP MainFunction
+1021                  23                             NOT2:;¼È²»ÊÇ1ÓÖ²»ÊÇ2
+1021 B40002           24                                     CJNE A,#0,NOT0
+1024 80E6             25                                             SJMP MainFunction;µÈÓÚ0¾ÍÖ±½Ó·µ»Ø
+1026                  26                             NOT0:;ÊÇ3
+1026 D2A6             27                                     SETB P2.6
+1028 C2AF             28                                     CLR EA
+102A 753500           29                                     MOV 035H,#0
+102D 80DD             30                             SJMP MainFunction
+102F                  31                             Check:
+102F 753002           32                                     MOV 030H,#2
+1032 1174             33                                     ACALL DelayMs
+1034 20A0D5           34                                     JB P2.0,MainFunction
+1037                  35                             Run:
+1037 C2A6             36                                     CLR P2.6
+1039 753501           37                                     MOV 035H,#1
+103C D2AF             38                                     SETB EA;¿ªÆô×ÜÖÐ¶Ï
+103E 30A0FD           39                                     Wait:JNB P2.0,Wait
+1041 80C9             40                                     SJMP MainFunction
+1043                  41             Timer0Processer:
+1043 C0E0             42                     PUSH Acc
+1045 E535             43                     MOV A,035H
+1047 B40102           44                     CJNE A,#1,Dong
+104A 8006             45                             SJMP Next
+104C                  46                     Dong:
+104C 758A00           47                             MOV TL0,#00H
+104F 758C00           48                             MOV TH0,#00H;3906.25HZ
+1052                  49                     Next:
+1052 D5311A           50                             DJNZ 031H,Return;Èç¹ûÃ»ÓÐÑ­»·µ½´ÎÊ¾ÍÖ±½Ó·µ»Ø2us
+1055 D53414           51                             DJNZ 034H,Continue
+1058 753414           52                                     MOV 034H,#020;
+105B 0535             53                                     INC 035H;i++
+105D E535             54                                     MOV A,035H
+105F B4030D           55                                     CJNE A,#3,Return
+1062 C2AF             56                                             CLR EA;µÈÓÚ3µÄ»°¾ÍÍ£Ö¹ÁË
+1064 85328A           57                                             MOV TL0,032H;
+1067 85338C           58                                             MOV TH0,033H;×°Èë³õÖµ
+A51 MACRO ASSEMBLER  HWK6                                                                 06/02/2015 12:52:33 PAGE     2
+
+106A 8003             59                                     SJMP Return
+106C                  60                     Continue:;Ê±¼äÎ´µ½£¬¼ÌÐøÕâ¸öÆµÂÊ
+106C 7531FF           61                             MOV 031H,#0FFH;ÖØÐÂ¶¨Ê±256´Î
+106F                  62                     Return:
+106F B2A3             63                             CPL P2.3
+1071 D0E0             64                             POP Acc
+1073 32               65                             RETI;2us
+1074                  66             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+1074 C030             67                     PUSH 030H;±£»¤30H,2us
+1076 75305A           68                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1079                  69                     DelayMsCircle1:;9992US
+1079 C030             70                             PUSH 030H;2us
+107B 753034           71                             MOV 030H,#034H;DEC=52,1us
+107E                  72                             DelayMsCircle2:
+107E D530FD           73                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1081 D030             74                             POP 030H;2us
+1083 D530F3           75                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+1086 D030             76                     POP 030H;»Ö¸´30H,2us
+1088 00               77                     NOP;1US
+1089 00               78                     NOP;1US
+108A 00               79                     NOP;1US
+108B D530E6           80                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+108E 22               81                     RET                       ;2us
+108F                  82             InitialiseTimer0:
+108F 7531FF           83                     MOV 031H,#0FFH;
+1092 75341E           84                     MOV 034H,#030;
+1095 753255           85                     MOV 032H,#055H;
+1098 753355           86                     MOV 033H,#055H;128us,Ô¼5848hz
+109B 758902           87                     MOV TMOD,#02H;ÉèÖÃT0¹¤×÷ÔÚ·½Ê½2
+109E 85328A           88                     MOV TL0,032H;
+10A1 85338C           89                     MOV TH0,033H;×°Èë³õÖµ
+10A4 D2B9             90                     SETB PT0;¸ßÓÅÏÈ¼¶
+10A6 D2A9             91                     SETB ET0;ÔÊÐíT0ÖÐ¶Ï
+10A8 D28C             92                     SETB TR0;Æô¶¯T0
+10AA C2AF             93                     CLR EA;¹Ø±Õ×ÜÖÐ¶Ï
+10AC 22               94                     RET
+                      95     END
+A51 MACRO ASSEMBLER  HWK6                                                                 06/02/2015 12:52:33 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . .  D ADDR   00E0H   A   
+CHECK. . . . . . .  C ADDR   102FH   A   
+CONTINUE . . . . .  C ADDR   106CH   A   
+DELAYMS. . . . . .  C ADDR   1074H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1079H   A   
+DELAYMSCIRCLE2 . .  C ADDR   107EH   A   
+DONG . . . . . . .  C ADDR   104CH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+INITIALISETIMER0 .  C ADDR   108FH   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   100CH   A   
+NEXT . . . . . . .  C ADDR   1052H   A   
+NOT0 . . . . . . .  C ADDR   1026H   A   
+NOT1 . . . . . . .  C ADDR   1018H   A   
+NOT2 . . . . . . .  C ADDR   1021H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+PT0. . . . . . . .  B ADDR   00B8H.1 A   
+RETURN . . . . . .  C ADDR   106FH   A   
+RUN. . . . . . . .  C ADDR   1037H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0PROCESSER. .  C ADDR   1043H   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+WAIT . . . . . . .  C ADDR   103EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

@@ -1,0 +1,89 @@
+A51 MACRO ASSEMBLER  TEST                                                                 04/28/2015 20:32:04 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN test.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE test.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN
+0003                   3     ORG 0003H
+0003 021031            4             LJMP Int0Processer;
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758131            7                      MOV SP,#031H;
+1003 7401              8                      MOV A,#01H;
+1005 113A              9                      ACALL InitialiseInt0;≥ı ºªØ÷–∂œ
+1007 7D00             10                      MOV R5,#00H;R5=0‘Ú‘À––
+1009                  11                      MainFunction:
+1009 BD00FD           12                             CJNE R5,#00H,MainFunction;‘À––±Í÷æŒªR5≤ªŒ™0æÕ“ª÷±‘⁄’‚∂˘—≠ª∑
+100C F590             13                             MOV P1,A;
+100E 03               14                             RR A;
+100F 753064           15                             MOV 030H,#064H;
+1012 1116             16                             ACALL DelayMs;
+1014 80F3             17                             SJMP MainFunction;
+1016                  18             DelayMs:      ;—” ±…œœﬁ256ms£¨ŒÛ≤Ó√ø¥Œ8us£¨ŒÛ≤Ó¿¥◊‘”⁄LCALL°¢∑µªÿ÷∏¡Ó°¢R7µƒ±£ª§∫Õª÷∏
+                             ¥£¨«Î π”√LCALL°¢SCALL∑√Œ ±æ◊”≥Ã–Ú,°æ«ÎΩ´≤Œ ∑≈‘⁄30H÷–°ø,±æÃı÷∏¡Ó≤ª∫¨œ÷≥°±£ª§£¨±æÃı÷∏¡Ó–Ë“™R7&R6¥Ê¥¢∆˜£°
+1016 C030             19                     PUSH 030H;±£ª§30H,2us
+1018 75305A           20                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+101B                  21                     DelayMsCircle1:;9992US
+101B C030             22                             PUSH 030H;2us
+101D 753034           23                             MOV 030H,#034H;DEC=52,1us
+1020                  24                             DelayMsCircle2:
+1020 D530FD           25                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1023 D030             26                             POP 030H;2us
+1025 D530F3           27                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircle÷¥––“ª¥Œ–
+                             Ë“™4us,—≠ª∑4*249=996US
+1028 D030             28                     POP 030H;ª÷∏¥30H,2us
+102A 00               29                     NOP;1US
+102B 00               30                     NOP;1US
+102C 00               31                     NOP;1US
+102D D530E6           32                     DJNZ 030H,DelayMS                           ;◊™“∆£¨2us
+1030 22               33                     RET                       ;2us
+1031                  34             Int0Processer:
+1031 BD0103           35                     CJNE R5,#01H,SetR501H
+1034                  36                     SetR500H:
+1034 7D00             37                             MOV R5,#00H;
+1036 32               38                     RETI;
+1037                  39                     SetR501H:
+1037 7D01             40                             MOV R5,#01H;
+1039 32               41                     RETI;
+103A                  42             InitialiseInt0:
+103A D288             43                     SETB IT0;œ¬Ωµ—ÿ¥•∑¢∑Ω Ω
+103C D2B8             44                     SETB PX0;∏ﬂ”≈œ»º∂
+103E D2A8             45                     SETB EX0;int0÷–∂œ‘ –Ì
+1040 D2AF             46                     SETB EA ;◊‹÷–∂œ‘ –Ì
+1042 22               47                     RET
+                      48                     
+                      49     END
+A51 MACRO ASSEMBLER  TEST                                                                 04/28/2015 20:32:04 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAYMS. . . . . .  C ADDR   1016H   A   
+DELAYMSCIRCLE1 . .  C ADDR   101BH   A   
+DELAYMSCIRCLE2 . .  C ADDR   1020H   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+EX0. . . . . . . .  B ADDR   00A8H.0 A   
+INITIALISEINT0 . .  C ADDR   103AH   A   
+INT0PROCESSER. . .  C ADDR   1031H   A   
+IT0. . . . . . . .  B ADDR   0088H.0 A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1009H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PX0. . . . . . . .  B ADDR   00B8H.0 A   
+SETR500H . . . . .  C ADDR   1034H   A   
+SETR501H . . . . .  C ADDR   1037H   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

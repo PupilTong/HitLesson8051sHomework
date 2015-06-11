@@ -1,0 +1,558 @@
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN MAX7219.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE MAX7219.src PR(.\MAX7219.ls1) EP DEBUG
+
+LOC  OBJ            LINE     SOURCE
+
+                       1     ; .\MAX7219.SRC generated from: MAX7219.c
+                       2     ; COMPILER INVOKED BY:
+                       3     ;        D:\Program Files (x86)\keil\C51\BIN\C51.EXE MAX7219.c BROWSE DEBUG OBJECTEXTEND TA
+                             BS(2) SRC(.\MAX7219.SRC)
+                       4     
+                       5     $nomod51 
+                       6     
+                       7     NAME    MAX7219
+                       8     
+  0080                 9     P0      DATA    080H
+  0090                10     P1      DATA    090H
+  00B1                11     Load    BIT     0B0H.1
+  00A0                12     P2      DATA    0A0H
+  00B0                13     P3      DATA    0B0H
+  00B4                14     T0      BIT     0B0H.4
+  00D6                15     AC      BIT     0D0H.6
+  00B5                16     T1      BIT     0B0H.5
+  00AF                17     EA      BIT     0A8H.7
+  00A8                18     IE      DATA    0A8H
+  00B7                19     RD      BIT     0B0H.7
+  00AC                20     ES      BIT     0A8H.4
+  00B8                21     IP      DATA    0B8H
+  00B2                22     Clk     BIT     0B0H.2
+  0098                23     RI      BIT     098H.0
+  00B0                24     Din     BIT     0B0H.0
+  00B2                25     INT0    BIT     0B0H.2
+  00D7                26     CY      BIT     0D0H.7
+  0099                27     TI      BIT     098H.1
+  00B3                28     INT1    BIT     0B0H.3
+  00BC                29     PS      BIT     0B8H.4
+  0081                30     SP      DATA    081H
+  00D2                31     OV      BIT     0D0H.2
+  00B6                32     WR      BIT     0B0H.6
+  0099                33     SBUF    DATA    099H
+  0087                34     PCON    DATA    087H
+  0098                35     SCON    DATA    098H
+  0089                36     TMOD    DATA    089H
+  0088                37     TCON    DATA    088H
+  0089                38     IE0     BIT     088H.1
+  008B                39     IE1     BIT     088H.3
+  00F0                40     B       DATA    0F0H
+  00E0                41     ACC     DATA    0E0H
+  00A9                42     ET0     BIT     0A8H.1
+  00AB                43     ET1     BIT     0A8H.3
+  008D                44     TF0     BIT     088H.5
+  008F                45     TF1     BIT     088H.7
+  009A                46     RB8     BIT     098H.2
+  008C                47     TH0     DATA    08CH
+  00A8                48     EX0     BIT     0A8H.0
+  0088                49     IT0     BIT     088H.0
+  008D                50     TH1     DATA    08DH
+  009B                51     TB8     BIT     098H.3
+  00AA                52     EX1     BIT     0A8H.2
+  008A                53     IT1     BIT     088H.2
+  00D0                54     P       BIT     0D0H.0
+  009F                55     SM0     BIT     098H.7
+  008A                56     TL0     DATA    08AH
+  009E                57     SM1     BIT     098H.6
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     2
+
+  008B                58     TL1     DATA    08BH
+  009D                59     SM2     BIT     098H.5
+  00B9                60     PT0     BIT     0B8H.1
+  00BB                61     PT1     BIT     0B8H.3
+  00D3                62     RS0     BIT     0D0H.3
+  008C                63     TR0     BIT     088H.4
+  00D4                64     RS1     BIT     0D0H.4
+  008E                65     TR1     BIT     088H.6
+  00B8                66     PX0     BIT     0B8H.0
+  00BA                67     PX1     BIT     0B8H.2
+  0083                68     DPH     DATA    083H
+  0082                69     DPL     DATA    082H
+  009C                70     REN     BIT     098H.4
+  00B0                71     RXD     BIT     0B0H.0
+  00B1                72     TXD     BIT     0B0H.1
+  00D5                73     F0      BIT     0D0H.5
+  00D0                74     PSW     DATA    0D0H
+                      75     ?PR?_TransferNumberToSignCode?MAX7219    SEGMENT CODE 
+                      76     ?PR?_Max7219Sign?MAX7219                 SEGMENT CODE 
+                      77     ?DT?_Max7219Sign?MAX7219                 SEGMENT DATA OVERLAYABLE 
+                      78     ?PR?Max7219Close?MAX7219                 SEGMENT CODE 
+                      79     ?PR?_Max7219SendOneData?MAX7219          SEGMENT CODE 
+                      80     ?DT?_Max7219SendOneData?MAX7219          SEGMENT DATA OVERLAYABLE 
+                      81     ?PR?_Max7219Send?MAX7219                 SEGMENT CODE 
+                      82     ?DT?_Max7219Send?MAX7219                 SEGMENT DATA OVERLAYABLE 
+                      83     ?PR?InitialiseMax7219?MAX7219            SEGMENT CODE 
+                      84     ?PR?DelayTenUs?MAX7219                   SEGMENT CODE 
+                      85             PUBLIC  DelayTenUs
+                      86             PUBLIC  InitialiseMax7219
+                      87             PUBLIC  _Max7219Send
+                      88             PUBLIC  _Max7219SendOneData
+                      89             PUBLIC  Max7219Close
+                      90             PUBLIC  _Max7219Sign
+                      91             PUBLIC  _TransferNumberToSignCode
+                      92     
+----                  93             RSEG  ?DT?_Max7219Send?MAX7219
+0000                  94     ?_Max7219Send?BYTE:
+0000                  95         Address?445:   DS   1
+0001                  96             ORG  1
+0001                  97            Data?446:   DS   1
+                      98     
+----                  99             RSEG  ?DT?_Max7219Sign?MAX7219
+0000                 100     ?_Max7219Sign?BYTE:
+0000                 101          Number?142:   DS   2
+                     102     
+----                 103             RSEG  ?DT?_Max7219SendOneData?MAX7219
+0000                 104     ?_Max7219SendOneData?BYTE:
+0000                 105            Data?343:   DS   1
+0001                 106             ORG  1
+0001                 107               i?344:   DS   1
+                     108     ; #include<reg51.h>
+                     109     ; #include<MAX7219.h>
+                     110     ; sbit Din=P3^0;
+                     111     ; sbit Load=P3^1;
+                     112     ; sbit Clk=P3^2;
+                     113     ; unsigned char TransferNumberToSignCode(unsigned int Number){
+                     114     
+----                 115             RSEG  ?PR?_TransferNumberToSignCode?MAX7219
+0000                 116     L?0029:
+                     117             USING   0
+0000                 118     L?0030:
+0000 AF00     F      119             MOV     R7,Number?142+01H
+0002 AE00     F      120             MOV     R6,Number?142
+0004                 121     _TransferNumberToSignCode:
+                     122                             ; SOURCE LINE # 6
+                     123     ;---- Variable 'Number?040' assigned to Register 'R6/R7' ----
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     3
+
+                     124     ; ////////ÀûÓÃÆ¬ÄÚµÄbcd×ª»»Æ÷
+                     125     ; //    unsigned char Return;
+                     126     ; //    switch(Number){
+                     127     ; //            case 0:Return=0x3f;break;
+                     128     ; //            case 1:Return=0x06;break;
+                     129     ; //            case 2:Return=0x5b;break;
+                     130     ; //            case 3:Return=0x4f;break;
+                     131     ; //            case 4:Return=0x66;break;
+                     132     ; //            case 5:Return=0x6d;break;
+                     133     ; //            case 6:Return=0x7d;break;
+                     134     ; //            case 7:Return=0x07;break;
+                     135     ; //            case 8:Return=0x7f;break;
+                     136     ; //            case 9:Return=0x6f;break;
+                     137     ; //            case 0xa:Return=0x77;break;
+                     138     ; //            case 0xb:Return=0x7c;break;
+                     139     ; //            case 0xc:Return=0x39;break;
+                     140     ; //            case 0xd:Return=0x5e;break;
+                     141     ; //            case 0xe:Return=0x79;break;
+                     142     ; //            case 0xf:Return=0x71;break;
+                     143     ; //    }
+                     144     ; //    //Return=~Return;//¹²Ñô¼«Çë²»Òª×¢ÊÍ£¬¹²Òõ¼«Çë×¢ÊÍ
+                     145     ; //    return(Return);
+                     146     ; 
+                     147     ; 
+                     148     ; return(Number);
+                     149                             ; SOURCE LINE # 31
+                     150     ; }
+                     151                             ; SOURCE LINE # 32
+0004                 152     ?C0001:
+0004 22              153             RET     
+                     154     ; END OF _TransferNumberToSignCode
+                     155     
+                     156     ; void Max7219Sign(unsigned int SelectPort,unsigned int Number){
+                     157     
+----                 158             RSEG  ?PR?_Max7219Sign?MAX7219
+0000                 159     _Max7219Sign:
+                     160             USING   0
+                     161                             ; SOURCE LINE # 33
+0000 8C00     F      162             MOV     Number?142,R4
+0002 8D00     F      163             MOV     Number?142+01H,R5
+                     164     ;---- Variable 'SelectPort?141' assigned to Register 'R6/R7' ----
+                     165     ;       switch(SelectPort){
+                     166                             ; SOURCE LINE # 34
+0004 EE              167             MOV     A,R6
+0005 706E            168             JNZ     ?C0011
+0007 EF              169             MOV     A,R7
+0008 B40800          170             CJNE    A,#08H,?C0020
+000B                 171     ?C0020:
+000B 5068            172             JNC     ?C0011
+000D 900000   F      173             MOV     DPTR,#?C0021
+0010 F8              174             MOV     R0,A
+0011 28              175             ADD     A,R0
+0012 28              176             ADD     A,R0
+0013 73              177             JMP     @A+DPTR
+0014                 178     ?C0021:
+0014 020000   F      179             LJMP    ?C0003
+0017 020000   F      180             LJMP    ?C0004
+001A 020000   F      181             LJMP    ?C0005
+001D 020000   F      182             LJMP    ?C0006
+0020 020000   F      183             LJMP    ?C0007
+0023 020000   F      184             LJMP    ?C0008
+0026 020000   F      185             LJMP    ?C0009
+0029 020000   F      186             LJMP    ?C0010
+                     187     ;               case 0:Max7219Send(0x01,TransferNumberToSignCode(Number));break;
+                     188                             ; SOURCE LINE # 35
+002C                 189     ?C0003:
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     4
+
+002C 120000   F      190             LCALL   L?0029
+002F AD07            191             MOV     R5,AR7
+0031 7F01            192             MOV     R7,#01H
+0033 803D            193             SJMP    ?C0028
+                     194     ;               case 1:Max7219Send(0x02,TransferNumberToSignCode(Number));break;
+                     195                             ; SOURCE LINE # 36
+0035                 196     ?C0004:
+0035 120000   F      197             LCALL   L?0029
+0038 AD07            198             MOV     R5,AR7
+003A 7F02            199             MOV     R7,#02H
+003C                 200     ?C0022:
+003C 8034            201             SJMP    ?C0028
+                     202     ;               case 2:Max7219Send(0x03,TransferNumberToSignCode(Number));break;
+                     203                             ; SOURCE LINE # 37
+003E                 204     ?C0005:
+003E 120000   F      205             LCALL   L?0030
+0041 AD07            206             MOV     R5,AR7
+0043 7F03            207             MOV     R7,#03H
+0045                 208     ?C0023:
+0045 802B            209             SJMP    ?C0028
+                     210     ;               case 3:Max7219Send(0x04,TransferNumberToSignCode(Number));break;
+                     211                             ; SOURCE LINE # 38
+0047                 212     ?C0006:
+0047 120000   F      213             LCALL   L?0030
+004A AD07            214             MOV     R5,AR7
+004C 7F04            215             MOV     R7,#04H
+004E                 216     ?C0024:
+004E 8022            217             SJMP    ?C0028
+                     218     ;               case 4:Max7219Send(0x05,TransferNumberToSignCode(Number));break;
+                     219                             ; SOURCE LINE # 39
+0050                 220     ?C0007:
+0050 120000   F      221             LCALL   L?0030
+0053 AD07            222             MOV     R5,AR7
+0055 7F05            223             MOV     R7,#05H
+0057                 224     ?C0025:
+0057 8019            225             SJMP    ?C0028
+                     226     ;               case 5:Max7219Send(0x06,TransferNumberToSignCode(Number));break;
+                     227                             ; SOURCE LINE # 40
+0059                 228     ?C0008:
+0059 120000   F      229             LCALL   L?0030
+005C AD07            230             MOV     R5,AR7
+005E 7F06            231             MOV     R7,#06H
+0060                 232     ?C0026:
+0060 8010            233             SJMP    ?C0028
+                     234     ;               case 6:Max7219Send(0x07,TransferNumberToSignCode(Number));break;
+                     235                             ; SOURCE LINE # 41
+0062                 236     ?C0009:
+0062 120000   F      237             LCALL   L?0030
+0065 AD07            238             MOV     R5,AR7
+0067 7F07            239             MOV     R7,#07H
+0069                 240     ?C0027:
+0069 8007            241             SJMP    ?C0028
+                     242     ;               case 7:Max7219Send(0x08,TransferNumberToSignCode(Number));break;
+                     243                             ; SOURCE LINE # 42
+006B                 244     ?C0010:
+006B 120000   F      245             LCALL   L?0030
+006E AD07            246             MOV     R5,AR7
+0070 7F08            247             MOV     R7,#08H
+0072                 248     ?C0028:
+0072 120000   F      249             LCALL   _Max7219Send
+                     250     ;       }
+                     251                             ; SOURCE LINE # 43
+                     252     ; }
+                     253                             ; SOURCE LINE # 44
+0075                 254     ?C0011:
+0075 22              255             RET     
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     5
+
+                     256     ; END OF _Max7219Sign
+                     257     
+                     258     ; void Max7219Close(){
+                     259     
+----                 260             RSEG  ?PR?Max7219Close?MAX7219
+0000                 261     Max7219Close:
+                     262             USING   0
+                     263                             ; SOURCE LINE # 45
+                     264     ;       Max7219Send(0x0c, 0x00);//¹¤×÷Ä£Ê½µØÖ·0x0C 0X00:¹Ø±Õ 0x01 Õ³£
+                     265                             ; SOURCE LINE # 46
+0000 E4              266             CLR     A
+0001 FD              267             MOV     R5,A
+0002 7F0C            268             MOV     R7,#0CH
+0004 020000   F      269             LJMP    _Max7219Send
+                     270     ; END OF Max7219Close
+                     271     
+                     272     ; }
+                     273     ; void Max7219SendOneData(unsigned char Data){
+                     274     
+----                 275             RSEG  ?PR?_Max7219SendOneData?MAX7219
+0000                 276     _Max7219SendOneData:
+                     277             USING   0
+                     278                             ; SOURCE LINE # 48
+0000 8F00     F      279             MOV     Data?343,R7
+                     280     ;       unsigned char i;
+                     281     ;       for(i=0;i<8;i++){
+                     282                             ; SOURCE LINE # 50
+0002 E4              283             CLR     A
+0003 F500     F      284             MOV     i?344,A
+0005                 285     ?C0013:
+                     286     ;               Clk=0;
+                     287                             ; SOURCE LINE # 51
+0005 C2B2            288             CLR     Clk
+                     289     ;               Din=Data&0x80;//Ð´µØÖ·×î¸ßµÍÎ»
+                     290                             ; SOURCE LINE # 52
+0007 E500     F      291             MOV     A,Data?343
+0009 33              292             RLC     A
+000A 92B0            293             MOV     Din,C
+                     294     ;               DelayTenUs();//10us
+                     295                             ; SOURCE LINE # 53
+000C 120000   F      296             LCALL   DelayTenUs
+                     297     ;               Clk=1;
+                     298                             ; SOURCE LINE # 54
+000F D2B2            299             SETB    Clk
+                     300     ;               DelayTenUs();//10us
+                     301                             ; SOURCE LINE # 55
+0011 120000   F      302             LCALL   DelayTenUs
+                     303     ;               Data<<=1;
+                     304                             ; SOURCE LINE # 56
+0014 E500     F      305             MOV     A,Data?343
+0016 25E0            306             ADD     A,ACC
+0018 F500     F      307             MOV     Data?343,A
+                     308     ;       }
+                     309                             ; SOURCE LINE # 57
+001A 0500     F      310             INC     i?344
+001C E500     F      311             MOV     A,i?344
+001E C3              312             CLR     C
+001F 9408            313             SUBB    A,#08H
+0021 40E2            314             JC      ?C0013
+                     315     ; }
+                     316                             ; SOURCE LINE # 58
+0023                 317     ?C0016:
+0023 22              318             RET     
+                     319     ; END OF _Max7219SendOneData
+                     320     
+                     321     ; void Max7219Send(unsigned char Address,unsigned char Data){
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     6
+
+                     322     
+----                 323             RSEG  ?PR?_Max7219Send?MAX7219
+0000                 324     _Max7219Send:
+                     325             USING   0
+                     326                             ; SOURCE LINE # 59
+0000 8F00     F      327             MOV     Address?445,R7
+0002 8D00     F      328             MOV     Data?446,R5
+                     329     ;       Load=0;//¿ªÊ¼´«Êä
+                     330                             ; SOURCE LINE # 60
+0004 C2B1            331             CLR     Load
+                     332     ;       DelayTenUs();//10us
+                     333                             ; SOURCE LINE # 61
+0006 120000   F      334             LCALL   DelayTenUs
+                     335     ;       Max7219SendOneData(Address);
+                     336                             ; SOURCE LINE # 62
+0009 AF00     F      337             MOV     R7,Address?445
+000B 120000   F      338             LCALL   _Max7219SendOneData
+                     339     ;       Max7219SendOneData(Data);
+                     340                             ; SOURCE LINE # 63
+000E AF00     F      341             MOV     R7,Data?446
+0010 120000   F      342             LCALL   _Max7219SendOneData
+                     343     ;       Load=1;//½áÊø´«Êä
+                     344                             ; SOURCE LINE # 64
+0013 D2B1            345             SETB    Load
+                     346     ; }     
+                     347                             ; SOURCE LINE # 65
+0015 22              348             RET     
+                     349     ; END OF _Max7219Send
+                     350     
+                     351     ; void InitialiseMax7219(){
+                     352     
+----                 353             RSEG  ?PR?InitialiseMax7219?MAX7219
+0000                 354     InitialiseMax7219:
+                     355             USING   0
+                     356                             ; SOURCE LINE # 66
+                     357     ;       Max7219Send(0x0b,4);//4Î»Ñ¡Í¨
+                     358                             ; SOURCE LINE # 67
+0000 7D04            359             MOV     R5,#04H
+0002 7F0B            360             MOV     R7,#0BH
+0004 120000   F      361             LCALL   _Max7219Send
+                     362     ;       Max7219Send(0x09,0xff);//±àÂëÄ£Ê½µØÖ·0x09 0x00~0xff,ÎªÒ»µÄÔòÎ»Ñ¡Í¨
+                     363                             ; SOURCE LINE # 68
+0007 7DFF            364             MOV     R5,#0FFH
+0009 7F09            365             MOV     R7,#09H
+000B 120000   F      366             LCALL   _Max7219Send
+                     367     ;       Max7219Send(0x0A,0x07);//ÁÁ¶È£¬0x0f×îÁÁ
+                     368                             ; SOURCE LINE # 69
+000E 7D07            369             MOV     R5,#07H
+0010 7F0A            370             MOV     R7,#0AH
+0012 120000   F      371             LCALL   _Max7219Send
+                     372     ;       Max7219Send(0x0c, 0x01);//¹¤×÷Ä£Ê½µØÖ·0x0C 0X00:¹Ø±Õ 0x01 Õ³£
+                     373                             ; SOURCE LINE # 70
+0015 7D01            374             MOV     R5,#01H
+0017 7F0C            375             MOV     R7,#0CH
+0019 020000   F      376             LJMP    _Max7219Send
+                     377     ; END OF InitialiseMax7219
+                     378     
+                     379     ; }
+                     380     ; void DelayTenUs(){
+                     381     
+----                 382             RSEG  ?PR?DelayTenUs?MAX7219
+0000                 383     DelayTenUs:
+                     384             USING   0
+                     385                             ; SOURCE LINE # 72
+                     386     ;       #pragma ASM
+                     387     ;               NOP
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     7
+
+0000 00              388               NOP
+                     389     ;               NOP
+0001 00              390               NOP
+                     391     ;               NOP
+0002 00              392               NOP
+                     393     ;               NOP
+0003 00              394               NOP
+                     395     ;               NOP
+0004 00              396               NOP
+                     397     ;               NOP
+0005 00              398               NOP
+                     399     ;       #pragma ENDASM 
+                     400     ; }                     ; SOURCE LINE # 81
+0006 22              401             RET     
+                     402     ; END OF DelayTenUs
+                     403     
+                     404             END
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     8
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                                T Y P E  V A L U E   ATTRIBUTES
+
+?C0001. . . . . . . . . . . . . . . .  C ADDR   0004H   R   SEG=?PR?_TRANSFERNUMBERTOSIGNCODE?MAX7219
+?C0003. . . . . . . . . . . . . . . .  C ADDR   002CH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0004. . . . . . . . . . . . . . . .  C ADDR   0035H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0005. . . . . . . . . . . . . . . .  C ADDR   003EH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0006. . . . . . . . . . . . . . . .  C ADDR   0047H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0007. . . . . . . . . . . . . . . .  C ADDR   0050H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0008. . . . . . . . . . . . . . . .  C ADDR   0059H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0009. . . . . . . . . . . . . . . .  C ADDR   0062H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0010. . . . . . . . . . . . . . . .  C ADDR   006BH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0011. . . . . . . . . . . . . . . .  C ADDR   0075H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0013. . . . . . . . . . . . . . . .  C ADDR   0005H   R   SEG=?PR?_MAX7219SENDONEDATA?MAX7219
+?C0016. . . . . . . . . . . . . . . .  C ADDR   0023H   R   SEG=?PR?_MAX7219SENDONEDATA?MAX7219
+?C0020. . . . . . . . . . . . . . . .  C ADDR   000BH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0021. . . . . . . . . . . . . . . .  C ADDR   0014H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0022. . . . . . . . . . . . . . . .  C ADDR   003CH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0023. . . . . . . . . . . . . . . .  C ADDR   0045H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0024. . . . . . . . . . . . . . . .  C ADDR   004EH   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0025. . . . . . . . . . . . . . . .  C ADDR   0057H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0026. . . . . . . . . . . . . . . .  C ADDR   0060H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0027. . . . . . . . . . . . . . . .  C ADDR   0069H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?C0028. . . . . . . . . . . . . . . .  C ADDR   0072H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+?DT?_MAX7219SEND?MAX7219. . . . . . .  D SEG    0002H       REL=UNIT
+?DT?_MAX7219SENDONEDATA?MAX7219 . . .  D SEG    0002H       REL=UNIT
+?DT?_MAX7219SIGN?MAX7219. . . . . . .  D SEG    0002H       REL=UNIT
+?PR?DELAYTENUS?MAX7219. . . . . . . .  C SEG    0007H       REL=UNIT
+?PR?INITIALISEMAX7219?MAX7219 . . . .  C SEG    001CH       REL=UNIT
+?PR?MAX7219CLOSE?MAX7219. . . . . . .  C SEG    0007H       REL=UNIT
+?PR?_MAX7219SEND?MAX7219. . . . . . .  C SEG    0016H       REL=UNIT
+?PR?_MAX7219SENDONEDATA?MAX7219 . . .  C SEG    0024H       REL=UNIT
+?PR?_MAX7219SIGN?MAX7219. . . . . . .  C SEG    0076H       REL=UNIT
+?PR?_TRANSFERNUMBERTOSIGNCODE?MAX7219  C SEG    0005H       REL=UNIT
+?_MAX7219SEND?BYTE. . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SEND?MAX7219
+?_MAX7219SENDONEDATA?BYTE . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SENDONEDATA?MAX7219
+?_MAX7219SIGN?BYTE. . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SIGN?MAX7219
+AC. . . . . . . . . . . . . . . . . .  B ADDR   00D0H.6 A   
+ACC . . . . . . . . . . . . . . . . .  D ADDR   00E0H   A   
+ADDRESS?445 . . . . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SEND?MAX7219
+AR7 . . . . . . . . . . . . . . . . .  D ADDR   0007H   A   
+B . . . . . . . . . . . . . . . . . .  D ADDR   00F0H   A   
+CLK . . . . . . . . . . . . . . . . .  B ADDR   00B0H.2 A   
+CY. . . . . . . . . . . . . . . . . .  B ADDR   00D0H.7 A   
+DATA?343. . . . . . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SENDONEDATA?MAX7219
+DATA?446. . . . . . . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?_MAX7219SEND?MAX7219
+DELAYTENUS. . . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?DELAYTENUS?MAX7219
+DIN . . . . . . . . . . . . . . . . .  B ADDR   00B0H.0 A   
+DPH . . . . . . . . . . . . . . . . .  D ADDR   0083H   A   
+DPL . . . . . . . . . . . . . . . . .  D ADDR   0082H   A   
+EA. . . . . . . . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ES. . . . . . . . . . . . . . . . . .  B ADDR   00A8H.4 A   
+ET0 . . . . . . . . . . . . . . . . .  B ADDR   00A8H.1 A   
+ET1 . . . . . . . . . . . . . . . . .  B ADDR   00A8H.3 A   
+EX0 . . . . . . . . . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1 . . . . . . . . . . . . . . . . .  B ADDR   00A8H.2 A   
+F0. . . . . . . . . . . . . . . . . .  B ADDR   00D0H.5 A   
+I?344 . . . . . . . . . . . . . . . .  D ADDR   0001H   R   SEG=?DT?_MAX7219SENDONEDATA?MAX7219
+IE. . . . . . . . . . . . . . . . . .  D ADDR   00A8H   A   
+IE0 . . . . . . . . . . . . . . . . .  B ADDR   0088H.1 A   
+IE1 . . . . . . . . . . . . . . . . .  B ADDR   0088H.3 A   
+INITIALISEMAX7219 . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?INITIALISEMAX7219?MAX7219
+INT0. . . . . . . . . . . . . . . . .  B ADDR   00B0H.2 A   
+A51 MACRO ASSEMBLER  MAX7219                                                              06/06/2015 14:00:59 PAGE     9
+
+INT1. . . . . . . . . . . . . . . . .  B ADDR   00B0H.3 A   
+IP. . . . . . . . . . . . . . . . . .  D ADDR   00B8H   A   
+IT0 . . . . . . . . . . . . . . . . .  B ADDR   0088H.0 A   
+IT1 . . . . . . . . . . . . . . . . .  B ADDR   0088H.2 A   
+L?0029. . . . . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_TRANSFERNUMBERTOSIGNCODE?MAX7219
+L?0030. . . . . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_TRANSFERNUMBERTOSIGNCODE?MAX7219
+LOAD. . . . . . . . . . . . . . . . .  B ADDR   00B0H.1 A   
+MAX7219 . . . . . . . . . . . . . . .  N NUMB   -----       
+MAX7219CLOSE. . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?MAX7219CLOSE?MAX7219
+NUMBER?142. . . . . . . . . . . . . .  D ADDR   0000H   R   SEG=?DT?_MAX7219SIGN?MAX7219
+OV. . . . . . . . . . . . . . . . . .  B ADDR   00D0H.2 A   
+P . . . . . . . . . . . . . . . . . .  B ADDR   00D0H.0 A   
+P0. . . . . . . . . . . . . . . . . .  D ADDR   0080H   A   
+P1. . . . . . . . . . . . . . . . . .  D ADDR   0090H   A   
+P2. . . . . . . . . . . . . . . . . .  D ADDR   00A0H   A   
+P3. . . . . . . . . . . . . . . . . .  D ADDR   00B0H   A   
+PCON. . . . . . . . . . . . . . . . .  D ADDR   0087H   A   
+PS. . . . . . . . . . . . . . . . . .  B ADDR   00B8H.4 A   
+PSW . . . . . . . . . . . . . . . . .  D ADDR   00D0H   A   
+PT0 . . . . . . . . . . . . . . . . .  B ADDR   00B8H.1 A   
+PT1 . . . . . . . . . . . . . . . . .  B ADDR   00B8H.3 A   
+PX0 . . . . . . . . . . . . . . . . .  B ADDR   00B8H.0 A   
+PX1 . . . . . . . . . . . . . . . . .  B ADDR   00B8H.2 A   
+RB8 . . . . . . . . . . . . . . . . .  B ADDR   0098H.2 A   
+RD. . . . . . . . . . . . . . . . . .  B ADDR   00B0H.7 A   
+REN . . . . . . . . . . . . . . . . .  B ADDR   0098H.4 A   
+RI. . . . . . . . . . . . . . . . . .  B ADDR   0098H.0 A   
+RS0 . . . . . . . . . . . . . . . . .  B ADDR   00D0H.3 A   
+RS1 . . . . . . . . . . . . . . . . .  B ADDR   00D0H.4 A   
+RXD . . . . . . . . . . . . . . . . .  B ADDR   00B0H.0 A   
+SBUF. . . . . . . . . . . . . . . . .  D ADDR   0099H   A   
+SCON. . . . . . . . . . . . . . . . .  D ADDR   0098H   A   
+SM0 . . . . . . . . . . . . . . . . .  B ADDR   0098H.7 A   
+SM1 . . . . . . . . . . . . . . . . .  B ADDR   0098H.6 A   
+SM2 . . . . . . . . . . . . . . . . .  B ADDR   0098H.5 A   
+SP. . . . . . . . . . . . . . . . . .  D ADDR   0081H   A   
+T0. . . . . . . . . . . . . . . . . .  B ADDR   00B0H.4 A   
+T1. . . . . . . . . . . . . . . . . .  B ADDR   00B0H.5 A   
+TB8 . . . . . . . . . . . . . . . . .  B ADDR   0098H.3 A   
+TCON. . . . . . . . . . . . . . . . .  D ADDR   0088H   A   
+TF0 . . . . . . . . . . . . . . . . .  B ADDR   0088H.5 A   
+TF1 . . . . . . . . . . . . . . . . .  B ADDR   0088H.7 A   
+TH0 . . . . . . . . . . . . . . . . .  D ADDR   008CH   A   
+TH1 . . . . . . . . . . . . . . . . .  D ADDR   008DH   A   
+TI. . . . . . . . . . . . . . . . . .  B ADDR   0098H.1 A   
+TL0 . . . . . . . . . . . . . . . . .  D ADDR   008AH   A   
+TL1 . . . . . . . . . . . . . . . . .  D ADDR   008BH   A   
+TMOD. . . . . . . . . . . . . . . . .  D ADDR   0089H   A   
+TR0 . . . . . . . . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1 . . . . . . . . . . . . . . . . .  B ADDR   0088H.6 A   
+TXD . . . . . . . . . . . . . . . . .  B ADDR   00B0H.1 A   
+WR. . . . . . . . . . . . . . . . . .  B ADDR   00B0H.6 A   
+_MAX7219SEND. . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_MAX7219SEND?MAX7219
+_MAX7219SENDONEDATA . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_MAX7219SENDONEDATA?MAX7219
+_MAX7219SIGN. . . . . . . . . . . . .  C ADDR   0000H   R   SEG=?PR?_MAX7219SIGN?MAX7219
+_TRANSFERNUMBERTOSIGNCODE . . . . . .  C ADDR   0004H   R   SEG=?PR?_TRANSFERNUMBERTOSIGNCODE?MAX7219
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

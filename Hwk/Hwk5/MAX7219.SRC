@@ -1,0 +1,404 @@
+; .\MAX7219.SRC generated from: MAX7219.c
+; COMPILER INVOKED BY:
+;        D:\Program Files (x86)\keil\C51\BIN\C51.EXE MAX7219.c BROWSE DEBUG OBJECTEXTEND TABS(2) SRC(.\MAX7219.SRC)
+
+$NOMOD51
+
+NAME	MAX7219
+
+P0	DATA	080H
+P1	DATA	090H
+Load	BIT	0B0H.1
+P2	DATA	0A0H
+P3	DATA	0B0H
+T0	BIT	0B0H.4
+AC	BIT	0D0H.6
+T1	BIT	0B0H.5
+EA	BIT	0A8H.7
+IE	DATA	0A8H
+RD	BIT	0B0H.7
+ES	BIT	0A8H.4
+IP	DATA	0B8H
+Clk	BIT	0B0H.2
+RI	BIT	098H.0
+Din	BIT	0B0H.0
+INT0	BIT	0B0H.2
+CY	BIT	0D0H.7
+TI	BIT	098H.1
+INT1	BIT	0B0H.3
+PS	BIT	0B8H.4
+SP	DATA	081H
+OV	BIT	0D0H.2
+WR	BIT	0B0H.6
+SBUF	DATA	099H
+PCON	DATA	087H
+SCON	DATA	098H
+TMOD	DATA	089H
+TCON	DATA	088H
+IE0	BIT	088H.1
+IE1	BIT	088H.3
+B	DATA	0F0H
+ACC	DATA	0E0H
+ET0	BIT	0A8H.1
+ET1	BIT	0A8H.3
+TF0	BIT	088H.5
+TF1	BIT	088H.7
+RB8	BIT	098H.2
+TH0	DATA	08CH
+EX0	BIT	0A8H.0
+IT0	BIT	088H.0
+TH1	DATA	08DH
+TB8	BIT	098H.3
+EX1	BIT	0A8H.2
+IT1	BIT	088H.2
+P	BIT	0D0H.0
+SM0	BIT	098H.7
+TL0	DATA	08AH
+SM1	BIT	098H.6
+TL1	DATA	08BH
+SM2	BIT	098H.5
+PT0	BIT	0B8H.1
+PT1	BIT	0B8H.3
+RS0	BIT	0D0H.3
+TR0	BIT	088H.4
+RS1	BIT	0D0H.4
+TR1	BIT	088H.6
+PX0	BIT	0B8H.0
+PX1	BIT	0B8H.2
+DPH	DATA	083H
+DPL	DATA	082H
+REN	BIT	098H.4
+RXD	BIT	0B0H.0
+TXD	BIT	0B0H.1
+F0	BIT	0D0H.5
+PSW	DATA	0D0H
+?PR?_TransferNumberToSignCode?MAX7219    SEGMENT CODE 
+?PR?_Max7219Sign?MAX7219                 SEGMENT CODE 
+?DT?_Max7219Sign?MAX7219                 SEGMENT DATA OVERLAYABLE 
+?PR?Max7219Close?MAX7219                 SEGMENT CODE 
+?PR?_Max7219SendOneData?MAX7219          SEGMENT CODE 
+?DT?_Max7219SendOneData?MAX7219          SEGMENT DATA OVERLAYABLE 
+?PR?_Max7219Send?MAX7219                 SEGMENT CODE 
+?DT?_Max7219Send?MAX7219                 SEGMENT DATA OVERLAYABLE 
+?PR?InitialiseMax7219?MAX7219            SEGMENT CODE 
+?PR?DelayTenUs?MAX7219                   SEGMENT CODE 
+	PUBLIC	DelayTenUs
+	PUBLIC	InitialiseMax7219
+	PUBLIC	_Max7219Send
+	PUBLIC	_Max7219SendOneData
+	PUBLIC	Max7219Close
+	PUBLIC	_Max7219Sign
+	PUBLIC	_TransferNumberToSignCode
+
+	RSEG  ?DT?_Max7219Send?MAX7219
+?_Max7219Send?BYTE:
+    Address?445:   DS   1
+	ORG  1
+       Data?446:   DS   1
+
+	RSEG  ?DT?_Max7219Sign?MAX7219
+?_Max7219Sign?BYTE:
+     Number?142:   DS   2
+
+	RSEG  ?DT?_Max7219SendOneData?MAX7219
+?_Max7219SendOneData?BYTE:
+       Data?343:   DS   1
+	ORG  1
+          i?344:   DS   1
+; #include<reg51.h>
+; #include<MAX7219.h>
+; sbit Din=P3^0;
+; sbit Load=P3^1;
+; sbit Clk=P3^2;
+; unsigned char TransferNumberToSignCode(unsigned int Number){
+
+	RSEG  ?PR?_TransferNumberToSignCode?MAX7219
+L?0029:
+	USING	0
+L?0030:
+	MOV  	R7,Number?142+01H
+	MOV  	R6,Number?142
+_TransferNumberToSignCode:
+			; SOURCE LINE # 6
+;---- Variable 'Number?040' assigned to Register 'R6/R7' ----
+; ////////利用片内的bcd转换器
+; //	unsigned char Return;
+; //	switch(Number){
+; //		case 0:Return=0x3f;break;
+; //		case 1:Return=0x06;break;
+; //		case 2:Return=0x5b;break;
+; //		case 3:Return=0x4f;break;
+; //		case 4:Return=0x66;break;
+; //		case 5:Return=0x6d;break;
+; //		case 6:Return=0x7d;break;
+; //		case 7:Return=0x07;break;
+; //		case 8:Return=0x7f;break;
+; //		case 9:Return=0x6f;break;
+; //		case 0xa:Return=0x77;break;
+; //		case 0xb:Return=0x7c;break;
+; //		case 0xc:Return=0x39;break;
+; //		case 0xd:Return=0x5e;break;
+; //		case 0xe:Return=0x79;break;
+; //		case 0xf:Return=0x71;break;
+; //	}
+; //	//Return=~Return;//共阳极请不要注释，共阴极请注释
+; //	return(Return);
+; 
+; 
+; return(Number);
+			; SOURCE LINE # 31
+; }
+			; SOURCE LINE # 32
+?C0001:
+	RET  	
+; END OF _TransferNumberToSignCode
+
+; void Max7219Sign(unsigned int SelectPort,unsigned int Number){
+
+	RSEG  ?PR?_Max7219Sign?MAX7219
+_Max7219Sign:
+	USING	0
+			; SOURCE LINE # 33
+	MOV  	Number?142,R4
+	MOV  	Number?142+01H,R5
+;---- Variable 'SelectPort?141' assigned to Register 'R6/R7' ----
+; 	switch(SelectPort){
+			; SOURCE LINE # 34
+	MOV  	A,R6
+	JNZ  	?C0011
+	MOV  	A,R7
+	CJNE 	A,#08H,?C0020
+?C0020:
+	JNC  	?C0011
+	MOV  	DPTR,#?C0021
+	MOV  	R0,A
+	ADD  	A,R0
+	ADD  	A,R0
+	JMP  	@A+DPTR
+?C0021:
+	LJMP 	?C0003
+	LJMP 	?C0004
+	LJMP 	?C0005
+	LJMP 	?C0006
+	LJMP 	?C0007
+	LJMP 	?C0008
+	LJMP 	?C0009
+	LJMP 	?C0010
+; 		case 0:Max7219Send(0x01,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 35
+?C0003:
+	LCALL	L?0029
+	MOV  	R5,AR7
+	MOV  	R7,#01H
+	SJMP 	?C0028
+; 		case 1:Max7219Send(0x02,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 36
+?C0004:
+	LCALL	L?0029
+	MOV  	R5,AR7
+	MOV  	R7,#02H
+?C0022:
+	SJMP 	?C0028
+; 		case 2:Max7219Send(0x03,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 37
+?C0005:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#03H
+?C0023:
+	SJMP 	?C0028
+; 		case 3:Max7219Send(0x04,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 38
+?C0006:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#04H
+?C0024:
+	SJMP 	?C0028
+; 		case 4:Max7219Send(0x05,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 39
+?C0007:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#05H
+?C0025:
+	SJMP 	?C0028
+; 		case 5:Max7219Send(0x06,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 40
+?C0008:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#06H
+?C0026:
+	SJMP 	?C0028
+; 		case 6:Max7219Send(0x07,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 41
+?C0009:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#07H
+?C0027:
+	SJMP 	?C0028
+; 		case 7:Max7219Send(0x08,TransferNumberToSignCode(Number));break;
+			; SOURCE LINE # 42
+?C0010:
+	LCALL	L?0030
+	MOV  	R5,AR7
+	MOV  	R7,#08H
+?C0028:
+	LCALL	_Max7219Send
+; 	}
+			; SOURCE LINE # 43
+; }
+			; SOURCE LINE # 44
+?C0011:
+	RET  	
+; END OF _Max7219Sign
+
+; void Max7219Close(){
+
+	RSEG  ?PR?Max7219Close?MAX7219
+Max7219Close:
+	USING	0
+			; SOURCE LINE # 45
+; 	Max7219Send(0x0c, 0x00);//工作模式地址0x0C 0X00:关闭 0x01 正常
+			; SOURCE LINE # 46
+	CLR  	A
+	MOV  	R5,A
+	MOV  	R7,#0CH
+	LJMP 	_Max7219Send
+; END OF Max7219Close
+
+; }
+; void Max7219SendOneData(unsigned char Data){
+
+	RSEG  ?PR?_Max7219SendOneData?MAX7219
+_Max7219SendOneData:
+	USING	0
+			; SOURCE LINE # 48
+	MOV  	Data?343,R7
+; 	unsigned char i;
+; 	for(i=0;i<8;i++){
+			; SOURCE LINE # 50
+	CLR  	A
+	MOV  	i?344,A
+?C0013:
+; 		Clk=0;
+			; SOURCE LINE # 51
+	CLR  	Clk
+; 		Din=Data&0x80;//写地址最高低位
+			; SOURCE LINE # 52
+	MOV  	A,Data?343
+	RLC  	A
+	MOV  	Din,C
+; 		DelayTenUs();//10us
+			; SOURCE LINE # 53
+	LCALL	DelayTenUs
+; 		Clk=1;
+			; SOURCE LINE # 54
+	SETB 	Clk
+; 		DelayTenUs();//10us
+			; SOURCE LINE # 55
+	LCALL	DelayTenUs
+; 		Data<<=1;
+			; SOURCE LINE # 56
+	MOV  	A,Data?343
+	ADD  	A,ACC
+	MOV  	Data?343,A
+; 	}
+			; SOURCE LINE # 57
+	INC  	i?344
+	MOV  	A,i?344
+	CLR  	C
+	SUBB 	A,#08H
+	JC   	?C0013
+; }
+			; SOURCE LINE # 58
+?C0016:
+	RET  	
+; END OF _Max7219SendOneData
+
+; void Max7219Send(unsigned char Address,unsigned char Data){
+
+	RSEG  ?PR?_Max7219Send?MAX7219
+_Max7219Send:
+	USING	0
+			; SOURCE LINE # 59
+	MOV  	Address?445,R7
+	MOV  	Data?446,R5
+; 	Load=0;//开始传输
+			; SOURCE LINE # 60
+	CLR  	Load
+; 	DelayTenUs();//10us
+			; SOURCE LINE # 61
+	LCALL	DelayTenUs
+; 	Max7219SendOneData(Address);
+			; SOURCE LINE # 62
+	MOV  	R7,Address?445
+	LCALL	_Max7219SendOneData
+; 	Max7219SendOneData(Data);
+			; SOURCE LINE # 63
+	MOV  	R7,Data?446
+	LCALL	_Max7219SendOneData
+; 	Load=1;//结束传输
+			; SOURCE LINE # 64
+	SETB 	Load
+; }	
+			; SOURCE LINE # 65
+	RET  	
+; END OF _Max7219Send
+
+; void InitialiseMax7219(){
+
+	RSEG  ?PR?InitialiseMax7219?MAX7219
+InitialiseMax7219:
+	USING	0
+			; SOURCE LINE # 66
+; 	Max7219Send(0x0b,4);//4位选通
+			; SOURCE LINE # 67
+	MOV  	R5,#04H
+	MOV  	R7,#0BH
+	LCALL	_Max7219Send
+; 	Max7219Send(0x09,0xff);//编码模式地址0x09 0x00~0xff,为一的则位选通
+			; SOURCE LINE # 68
+	MOV  	R5,#0FFH
+	MOV  	R7,#09H
+	LCALL	_Max7219Send
+; 	Max7219Send(0x0A,0x07);//亮度，0x0f最亮
+			; SOURCE LINE # 69
+	MOV  	R5,#07H
+	MOV  	R7,#0AH
+	LCALL	_Max7219Send
+; 	Max7219Send(0x0c, 0x01);//工作模式地址0x0C 0X00:关闭 0x01 正常
+			; SOURCE LINE # 70
+	MOV  	R5,#01H
+	MOV  	R7,#0CH
+	LJMP 	_Max7219Send
+; END OF InitialiseMax7219
+
+; }
+; void DelayTenUs(){
+
+	RSEG  ?PR?DelayTenUs?MAX7219
+DelayTenUs:
+	USING	0
+			; SOURCE LINE # 72
+; 	#pragma ASM
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 		NOP
+	  NOP
+; 	#pragma ENDASM 
+; }			; SOURCE LINE # 81
+	RET  	
+; END OF DelayTenUs
+
+	END

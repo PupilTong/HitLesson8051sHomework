@@ -1,0 +1,97 @@
+A51 MACRO ASSEMBLER  HWK9                                                                 06/01/2015 20:48:04 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk9.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk9.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+000B                   3     ORG 000BH
+000B 02100B            4             LJMP Timer0Processer;ÓÃ×÷¼ÆÊ·þÎñÏß³Ì
+1000                   5     ORG 1000H
+1000                   6             MAIN:
+1000 758139            7                      MOV SP,#039H;30ÑÓÊ±²ÎÊ£¬31¶¨Ê±´ÎÊ£¬32TL0£¬33TH0
+1003 113B              8                      ACALL InitialiseTimer0
+1005 7400              9                      MOV A,#0
+1007 F590             10                      MOV P1,A
+1009                  11                      MainFunction:
+1009 80FE             12                             SJMP MainFunction
+100B                  13             Timer0Processer:;Ã¿´Î½øÈëºÄÊ±12US
+100B 7532BA           14                     MOV 032H,#0BAH;2us
+100E 75333C           15                     MOV 033H,#03CH;2us
+1011 D53107           16                     DJNZ 031H,Return;2us
+1014 F4               17                             CPL A;1us
+1015 F590             18                             MOV P1,A;1us
+1017 753120           19                             MOV 031H,#20H;¶¨Ê±20´Î,2us
+101A 32               20                             RETI;2us
+101B                  21                     Return:
+101B 00               22                             NOP;1us
+101C 00               23                             NOP;1us
+101D 00               24                             NOP;1us
+101E 00               25                             NOP;1us
+101F 32               26                             RETI;2us
+1020                  27             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+1020 C030             28                     PUSH 030H;±£»¤30H,2us
+1022 75305A           29                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1025                  30                     DelayMsCircle1:;9992US
+1025 C030             31                             PUSH 030H;2us
+1027 753034           32                             MOV 030H,#034H;DEC=52,1us
+102A                  33                             DelayMsCircle2:
+102A D530FD           34                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+102D D030             35                             POP 030H;2us
+102F D530F3           36                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+1032 D030             37                     POP 030H;»Ö¸´30H,2us
+1034 00               38                     NOP;1US
+1035 00               39                     NOP;1US
+1036 00               40                     NOP;1US
+1037 D530E6           41                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+103A 22               42                     RET                       ;2us
+103B                  43             InitialiseTimer0:
+103B 753120           44                     MOV 031H,#20H;¶¨Ê±20´Î,25MS*20=500MS
+103E 753264           45                     MOV 032H,#064H;
+1041 75339E           46                     MOV 033H,#09EH;40548,24MS988us
+1044 758901           47                     MOV TMOD,#01H;ÉèÖÃT0¹¤×÷ÔÚ·½Ê½1
+1047 85328A           48                     MOV TL0,032H;
+104A 85338C           49                     MOV TH0,033H;×°Èë³õÖµ
+104D D2B9             50                     SETB PT0;¸ßÓÅÏÈ¼¶
+104F D2A9             51                     SETB ET0;ÔÊÐíT0ÖÐ¶Ï
+1051 D28C             52                     SETB TR0;Æô¶¯T0
+1053 D2AF             53                     SETB EA;¿ªÆô×ÜÖÐ¶Ï
+1055 22               54                     RET
+                      55     END
+A51 MACRO ASSEMBLER  HWK9                                                                 06/01/2015 20:48:04 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAYMS. . . . . .  C ADDR   1020H   A   
+DELAYMSCIRCLE1 . .  C ADDR   1025H   A   
+DELAYMSCIRCLE2 . .  C ADDR   102AH   A   
+EA . . . . . . . .  B ADDR   00A8H.7 A   
+ET0. . . . . . . .  B ADDR   00A8H.1 A   
+INITIALISETIMER0 .  C ADDR   103BH   A   
+MAIN . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . .  C ADDR   1009H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+PT0. . . . . . . .  B ADDR   00B8H.1 A   
+RETURN . . . . . .  C ADDR   101BH   A   
+SP . . . . . . . .  D ADDR   0081H   A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TIMER0PROCESSER. .  C ADDR   100BH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

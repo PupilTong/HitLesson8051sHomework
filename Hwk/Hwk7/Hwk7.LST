@@ -1,0 +1,87 @@
+A51 MACRO ASSEMBLER  HWK7                                                                 06/01/2015 20:28:47 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Hwk7.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Hwk7.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+1000                   3     ORG 1000H
+1000                   4             MAIN:
+1000 758135            5                      MOV SP,#035H;30ÑÓÊ±²ÎÊ 34¶ÎÂë²éÑ¯²ÎÊ
+1003 7400              6                      MOV A,#0
+1005                   7                      MainFunction:
+1005 B40A04            8                             CJNE A,#10,RUN
+1008 7400              9                                     MOV A,#0
+100A 80F9             10                                     SJMP MainFunction
+100C                  11                             RUN:
+100C F534             12                                     MOV 034H,A
+100E 1136             13                                     ACALL TransferNumberToSignCode
+1010 853480           14                                     MOV P0,034H
+1013 753032           15                                     MOV 030H,#50
+1016 111B             16                                     ACALL DelayMs
+1018 04               17                                     INC A
+1019 80EA             18                                     SJMP MainFunction
+101B                  19             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+101B C030             20                     PUSH 030H;±£»¤30H,2us
+101D 75305A           21                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+1020                  22                     DelayMsCircle1:;9992US
+1020 C030             23                             PUSH 030H;2us
+1022 753034           24                             MOV 030H,#034H;DEC=52,1us
+1025                  25                             DelayMsCircle2:
+1025 D530FD           26                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+1028 D030             27                             POP 030H;2us
+102A D530F3           28                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+102D D030             29                     POP 030H;»Ö¸´30H,2us
+102F 00               30                     NOP;1US
+1030 00               31                     NOP;1US
+1031 00               32                     NOP;1US
+1032 D530E6           33                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+1035 22               34                     RET
+1036                  35             TransferNumberToSignCode:;Ê×Ö×ª»»¶ÎÂë;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR
+                             ,A£¬ÐèÒªTAB2
+1036 C0E0             36                     PUSH Acc
+1038 901044           37                     MOV DPTR,#TAB2
+103B E534             38                     MOV A,034H
+103D 93               39                     MOVC A,@A+DPTR;²é±í
+103E F4               40                     CPL A;¡¾¹²Òõ¼«Çë×¢ÊÍ´Ë¾ä£¬¹²Ñô¼«Çë±£³Ö´Ë¾äÓÐÐ§¡¿
+103F F534             41                     MOV 034H,A;½á¹û±£´æÔÚ034HÖÐ
+1041 D0E0             42                     POP Acc
+1043 22               43                     RET
+1044                  44             TAB2:;ÕâÊÇ¶ÎÂë±í
+1044 3F065B4F         45                     DB 03FH,006H,05BH,04FH,066H,06DH,07DH,007H,07FH,06FH;0-9
+1048 666D7D07                
+104C 7F6F                    
+104E 777C395E         46                     DB 077H,07CH,039H,05EH,079H,071H;A-F
+1052 7971                    
+                      47     END
+A51 MACRO ASSEMBLER  HWK7                                                                 06/01/2015 20:28:47 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                   T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . . . . .  C ADDR   101BH   A   
+DELAYMSCIRCLE1 . . . . .  C ADDR   1020H   A   
+DELAYMSCIRCLE2 . . . . .  C ADDR   1025H   A   
+MAIN . . . . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . . . . .  C ADDR   1005H   A   
+P0 . . . . . . . . . . .  D ADDR   0080H   A   
+RUN. . . . . . . . . . .  C ADDR   100CH   A   
+SP . . . . . . . . . . .  D ADDR   0081H   A   
+TAB2 . . . . . . . . . .  C ADDR   1044H   A   
+TRANSFERNUMBERTOSIGNCODE  C ADDR   1036H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

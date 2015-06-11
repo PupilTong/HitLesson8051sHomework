@@ -1,0 +1,305 @@
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.02b
+OBJECT MODULE PLACED IN Exp4.OBJ
+ASSEMBLER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\A51.EXE Exp4.a51 SET(SMALL) DEBUG EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+0000 021000            2             LJMP MAIN;
+0003                   3     ORG 0003H
+0003 021031            4             LJMP Int0Processer;
+000B                   5     ORG 000BH
+000B 02104D            6             LJMP Timer0Processer;ÓÃ×÷ÏÔÊ¾·þÎñÏß³Ì
+0013                   7     ORG 0013H
+0013 021044            8             LJMP Int1Processer;
+0023                   9     ORG 0023H
+0023 021071           10             LJMP SerialProcesser;
+1000                  11     ORG 1000H
+1000                  12             MAIN:
+1000 7590F0           13                      MOV P1,#0F0H;
+1003 75A001           14                      MOV P2,#01H;³õÊ¼»¯£¬Ñ¡ÖÐ×îµÍÎ»
+1006 753790           15                      MOV 037H,#090H;
+1009 7538F9           16                      MOV 038H,#0F9H;
+100C 753990           17                      MOV 039H,#090H;
+100F 753AF9           18                      MOV 03AH,#0F9H;
+1012 753BF9           19                      MOV 03BH,#0F9H;
+1015 753C00           20                      MOV 03CH,#000H;
+1018 753DF9           21                      MOV 03DH,#0F9H;
+101B 753E00           22                      MOV 03EH,#000H;
+101E 753F00           23                      MOV 03FH,#00H;³õÊ¼»¯Ö¸Õë
+1021 758148           24                      MOV SP,#048H;030ÑÓ³Ù´«²Î£¬031¶¨Ê±ÖÐ¶Ï´ÎÊ£¬032¶¨Ê±Æ÷ÖÐ¶ÏµÍ°ËÎ»£¬033¶¨Ê±Æ÷ÖÐ
+                             ¶Ï¸ß°ËÎ»
+                      25                      ;034¼üÅÌÁÙÊ±´«²Î/³õÊ¼»¯³ÌÐò´«²ÎÆðÊ¼µØÖ·,035¼üÅÌ´¦Àí³ÌÐòÁÙÊ±±äÁ¿£¨¼Ä´æÆ÷²»Ä
+                             ÜÐ´·ÖÖ§Óï¾ä£©/³õÊ¼»¯³ÌÐò´«²ÎÖÕÖ¹µØÖ·,036H¼üÅÌ½á¹û
+                      26                      ;037-03EÏÔÊ¾Ê×Ö´æ´¢,03F×÷ÏÔÊ¾Î»Ñ¡Ö¸Õë;040H×÷Îª´®¿Ú·¢ËÍÆðÊ¼µØÖ·/Ö¸Õë£¬041H´
+                             ®¿Ú·¢ËÍÖÕÖ¹µØÖ·
+                      27                      ;MOV 036H,#0FFH;
+1024 312D             28                      ACALL InitialiseSerial;³õÊ¼»¯´®¿Ú
+1026 3114             29                      ACALL InitialiseTimer0;³õÊ¼»¯¶¨Ê±Æ÷0
+1028 758922           30                      MOV TMOD,#022H;¸²¸ÇÉèÖÃ¶¨Ê±Æ÷¹¤×÷·½Ê½
+102B 3104             31                      ACALL InitialiseInt0;³õÊ¼»¯ÖÐ¶Ï0£¬°´¼üÖÐ¶Ï
+102D 310B             32                      ACALL InitialiseInt1;³õÊ¼»¯ÖÐ¶Ï1£¬´®¿Ú·¢ËÍ
+102F                  33                      MainFunction:
+102F 80FE             34                                     SJMP MainFunction;
+1031                  35             Int0Processer:
+1031 11BB             36                     ACALL GetP1KeypadTo3435;
+1033 11D9             37                     ACALL SearchKeypadValue;
+1035 11F6             38                     ACALL TransferNumberToSignCode;
+1037 853940           39                     MOV 040H,039H;
+103A 853839           40                     MOV 039H,038H;
+103D 853738           41                     MOV 038H,037H;ÒÔÉÏÈ«²¿Îª×óÒÆÊ×Ö£¬037H¶ªÆú
+1040 853437           42                     MOV 037H,034H;×îºóÒ»Î»Ê×ÖÊÇÐÂÊäÈëµÄ
+1043 32               43                     RETI
+1044                  44             Int1Processer:
+1044 754037           45                     MOV 040H,#037H
+1047 75413A           46                     MOV 041H,#03AH;´Ó037·¢ËÍµ½3A
+104A 1196             47                     ACALL SerialSent;
+104C 32               48                     RETI
+104D                  49             Timer0Processer:
+                      50                     ;MOV TL0,032H;
+                      51                     ;MOV TH0,033H;ÖØÐÂ×°Èë³õÖµ
+104D D53105           52                     DJNZ 031H,Return;Èç¹ûÃ»ÓÐÑ­»·µ½´ÎÊ¾ÍÖ±½Ó·µ»Ø
+1050 75310A           53                     MOV 031H,#0AH;ÖØÐÂ¶¨Ê±10´Î
+1053 1156             54                     ACALL FlashSigner;
+1055                  55                     Return:
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     2
+
+1055 32               56                             RETI;
+1056                  57             FlashSigner:;Î»Ñ¡É¨Ãè
+1056 7580FF           58                     MOV P0,#0FFH;Ïû³ÓàêÍ
+1059 E5A0             59                     MOV A,P2;
+105B 03               60                     RR A;
+105C F5A0             61                     MOV P2,A;Î»Ñ¡
+105E E53F             62                     MOV A,03FH;45h´æ·ÅÏÂÒ»´ÎÑ¡ÖÐÄÄÒ»Î»
+1060 2437             63                     ADD A,#037H;037hÊÇµÚÒ»Î»£¬ÕâÊÇÇóµØÖ·
+1062 F8               64                     MOV R0,A;R0ÁÙÊ±±£´æ
+1063 E6               65                     MOV A,@R0;È¡Ä¿±êµØÖ·µÄÊ¾Ý
+1064 F580             66                     MOV P0,A;
+1066 053F             67                     INC 03FH;
+1068 E53F             68                     MOV A,03FH
+106A B408E8           69                     CJNE A,#08H,Return;ÉÐÎ´Òç³ö£¬·µ»Ø
+106D 753F00           70                     MOV 03FH,#00H;ÒÑ¾­Òç³ö£¬ÇåÁã
+1070 22               71                     RET
+1071                  72             SerialProcesser:;×¨ÓÃ´®¿Ú½ÓÊÕ´¦Àíº¯Ê
+1071 C0E0             73                     PUSH Acc
+1073 20980A           74                     JB RI,SerialReceive;
+1076 C299             75                     CLR TI;
+1078 E540             76                     MOV A,040H
+107A B54115           77                     CJNE A,041H,ToSerialSentFrame;Ä¿µÄµØÖ·²»µÈÓÚÄ©µØÖ·¾Í¼ÌÐø·¢ËÍ
+107D                  78                     SerialProcesserEnd:
+107D D0E0             79                             POP Acc
+107F 32               80                             RETI
+1080                  81                     SerialReceive:
+1080 C298             82                             CLR RI
+1082 E599             83                             MOV A,SBUF;ÊÕµ½µÄÊ¾Ý´«ÈëA
+1084 853D3E           84                             MOV 03EH,03DH;
+1087 853C3D           85                             MOV 03DH,03CH;
+108A 853B3C           86                             MOV 03CH,03BH;ÒÔÉÏÈ«²¿Îª×óÒÆÊ×Ö£¬037H¶ªÆú
+108D F53B             87                             MOV 03BH,A;×îºóÒ»Î»Ê×ÖÊÇÐÂÊäÈëµÄ
+108F D0E0             88                             POP Acc
+1091 32               89                             RETI
+1092                  90                     ToSerialSentFrame:
+1092 1198             91                             ACALL SerialSentFrame;·ÃÎÊ·¢ËÍº¯Ê
+1094 80E7             92                             SJMP SerialProcesserEnd;
+1096                  93             SerialSent:;´®¿Ú·¢ËÍ£¬×¨ÓÃº¯Ê
+1096 1540             94                     DEC 040H;Ä©µØÖ·¼ÓÒ»£¬ÒòÎªÒª·¢ËÍµÄÊ¾Ý°üº¬Ä©µØÖ·
+1098                  95                     SerialSentFrame:;·¢ËÍÒ»¸öÊ¾ÝÖ¡
+1098 A941             96                             MOV R1,041H;±£´æÄ¿±êµØÖ·
+109A E7               97                             MOV A,@R1;¶ÁÈëÄ¿±êµØÖ·Ê¾Ý
+109B F599             98                             MOV SBUF,A;·¢ËÍÊ¾Ý
+109D 1541             99                             DEC 041H;ÒòÎª³õÊ¼»¯Ê±FF£¬ËùÒÔÏÈ×ÔÔöÒ»
+109F 22              100                     RET
+10A0                 101             DelayMs:      ;¡¾12mhzÊ±²Å×¼È·¡¿ÑÓÊ±ÉÏÏÞ256ms£¬Îó²îÃ¿´Î8us£¬Îó²îÀ´×ÔÓÚLCALL¡¢·µ»ØÖ¸
+                             Áî¡¢R7µÄ±£»¤ºÍ»Ö¸´£¬ÇëÊ¹ÓÃLCALL¡¢SCALL·ÃÎÊ±¾×Ó³ÌÐò,¡¾Çë½«²ÎÊ·ÅÔÚ30HÖÐ¡¿,±¾ÌõÖ¸Áî²»º¬ÏÖ³¡±£»¤£¬±¾ÌõÖ¸ÁîÐèÒªR7&R6´æ´¢Æ÷£¡
+10A0 C030            102                     PUSH 030H;±£»¤30H,2us
+10A2 75305A          103                     MOV 030H,#05AH;DEC=90,1us ,111*90=9990
+10A5                 104                     DelayMsCircle1:;9992US
+10A5 C030            105                             PUSH 030H;2us
+10A7 753034          106                             MOV 030H,#034H;DEC=52,1us
+10AA                 107                             DelayMsCircle2:
+10AA D530FD          108                                     DJNZ 030H,DelayMsCircle2;2us*52=104us
+10AD D030            109                             POP 030H;2us
+10AF D530F3          110                             DJNZ 030H,DelayMsCircle1                ;2us;DelayMsCircleÖ´ÐÐÒ»´ÎÐ
+                             èÒª4us,Ñ­»·4*249=996US
+10B2 D030            111                     POP 030H;»Ö¸´30H,2us
+10B4 00              112                     NOP;1US
+10B5 00              113                     NOP;1US
+10B6 00              114                     NOP;1US
+10B7 D530E6          115                     DJNZ 030H,DelayMS                           ;×ªÒÆ£¬2us
+10BA 22              116                     RET                       ;2us
+10BB                 117             GetP1KeypadTo3435:;½«Ð´ÈëA 030H 034H R7£¬½«¶ÁÈ¡P1£¬½á¹ûÊä³öÔÚ034H
+10BB 859035          118                     MOV 035H,P1;ÁÙÊ±±£´æP1
+10BE 753002          119                     MOV 030H,#02H;ÑÓÊ±20msÏû¶¶
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     3
+
+10C1 11A0            120                     ACALL DelayMs;µ÷ÓÃÑÓÊ±º¯Ê
+10C3 E590            121                     MOV A,P1;ÁÙÊ±±£´æP1
+10C5 B5350C          122                     CJNE A,035H,EndProcesser;±È½Ï35ÓëP1,Èç¹û²»ÏàµÈËµÃ÷ÊÇ¶¶¶¯£¬Ö±½Ó·µ»Ø
+10C8 75900F          123                     MOV P1,#00FH;
+10CB 859034          124                     MOV 034H,P1;´¥·¢ÖÐ¶ÏºóÉ¨Ãè³ö°´¼üÎ»ÖÃ
+10CE 7590F0          125                     MOV P1,#0F0H;--------------------------------------------------------
+10D1 4234            126                     ORL 034H,A;0000 1110 ORL 1110 0000 = 1110 1110 EEH-------------------------
+                             ----------
+10D3 22              127                     RET
+10D4                 128                     EndProcesser:
+10D4 D0E0            129                             POP Acc;Ö±½ÓÇå³Ìø×ªµ½±¾³ÌÐòÊ±±£´æµÄµØÖ·
+10D6 D0E0            130                             POP Acc;
+10D8 32              131                             RETI;Ìø³öÖÐ¶Ï´¦Àí³ÌÐò
+10D9                 132             SearchKeypadValue:;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR¡¢A£¬ÐèÒªTAB1
+10D9 901148          133                     MOV DPTR,#TAB1
+10DC E534            134                     MOV A,034H
+10DE 7400            135                     MOV A,#00H;
+10E0                 136                     SearchKeypadValueLoop:
+10E0 C0E0            137                             PUSH Acc;
+10E2 93              138                             MOVC A,@A+DPTR;²é±í½á¹ûËÍA
+10E3 B53405          139                             CJNE A,034H,SearchKeypadValueNotTrue;²»µÈÓÚ¾ÍÌø×ª
+10E6 D0E0            140                             POP Acc;
+10E8 F534            141                             MOV 034H,A;Êä³ö½á¹û
+10EA 22              142                     RET;
+10EB                 143                     SearchKeypadValueNotTrue:
+10EB D0E0            144                             POP Acc;
+10ED 04              145                             INC A
+10EE B40F03          146                             CJNE A,#0FH,NotSearchFailed;»¹Ã»µ½µÚ16¸ö£¨15£©,¾Í¼ÌÐøÑ­»·
+10F1 0210D4          147                                     LJMP EndProcesser;µ½ÁË£¬Ö±½ÓÍË³ö
+10F4                 148                             NotSearchFailed:
+10F4 80EA            149                                     SJMP SearchKeypadValueLoop;
+10F6                 150             TransferNumberToSignCode:;Ê×Ö×ª»»¶ÎÂë;´«Èë²ÎÊÇë·ÅÈë034H£¬½á¹û½«·ÅÔÚ034H£¬½«Ê¹ÓÃDPTR
+                             ,A£¬ÐèÒªTAB2
+10F6 C0E0            151                     PUSH Acc
+10F8 901158          152                     MOV DPTR,#TAB2
+10FB E534            153                     MOV A,034H
+10FD 93              154                     MOVC A,@A+DPTR;²é±í
+10FE F4              155                     CPL A;¡¾¹²Òõ¼«Çë×¢ÊÍ´Ë¾ä£¬¹²Ñô¼«Çë±£³Ö´Ë¾äÓÐÐ§¡¿
+10FF F534            156                     MOV 034H,A;½á¹û±£´æÔÚ034HÖÐ
+1101 D0E0            157                     POP Acc
+1103 22              158                     RET
+1104                 159             InitialiseInt0:
+1104 D288            160                     SETB IT0;ÏÂ½µÑØ´¥·¢·½Ê½
+1106 C2B8            161                     CLR PX0;µÍÓÅÏÈ¼¶
+1108 D2A8            162                     SETB EX0;int0ÖÐ¶ÏÔÊÐí
+                     163                     ;SETB EA ;×ÜÖÐ¶ÏÔÊÐí
+110A 22              164                     RET
+110B                 165             InitialiseInt1:
+110B D28A            166                     SETB IT1;ÏÂ½µÑØ´¥·¢·½Ê½
+110D C2BA            167                     CLR PX1;µÍÓÅÏÈ¼¶
+110F D2AA            168                     SETB EX1;int0ÖÐ¶ÏÔÊÐí
+1111 D2AF            169                     SETB EA ;×ÜÖÐ¶ÏÔÊÐí
+1113 22              170                     RET
+1114                 171             InitialiseTimer0:
+1114 75310A          172                     MOV 031H,#0AH;¶¨Ê±10´Î,500us
+1117 753200          173                     MOV 032H,#000H;
+111A 753300          174                     MOV 033H,#000H;¶¨Ê±Ô¼50us
+111D 758902          175                     MOV TMOD,#02H;ÉèÖÃT0¹¤×÷ÔÚ·½Ê½2
+1120 85328A          176                     MOV TL0,032H;
+1123 85338C          177                     MOV TH0,033H;×°Èë³õÖµ
+1126 C2B9            178                     CLR PT0;µÍÓÅÏÈ¼¶
+1128 D2A9            179                     SETB ET0;ÔÊÐíT0ÖÐ¶Ï
+112A D28C            180                     SETB TR0;Æô¶¯T0
+                     181                     ;SETB EA;×ÜÖÐ¶Ï
+112C 22              182                     RET
+112D                 183             InitialiseSerial:;³õÊ¼»¯´®¿Ú
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     4
+
+112D 758920          184                     MOV TMOD,#20H;¶¨Ê±Æ÷ÉèÖÃ
+1130 758DFD          185                     MOV TH1,#0FDH;
+1133 758BFD          186                     MOV TL1,#0FDH;ÔÚ11.0592Ê±ÊÇ9600
+1136 758700          187                     MOV PCON,#00H;²¨ÌØÂÊ²»¼Ó±¶
+1139 D2BC            188                     SETB PS;´®¿ÚÖÐ¶Ï¸ßÓÅÏÈ¼¶
+113B D28E            189                     SETB TR1;Æô¶¯¼ÆÊ
+113D C29F            190                     CLR SM0;¹¤×÷·½Ê½1
+113F D29E            191                     SETB SM1;¹¤×÷·½Ê½1
+1141 C29D            192                     CLR SM2;·Ç¶à»úÍ¨Ñ¶
+1143 D29C            193                     SETB REN;ÔÊÐí½ÓÊÕÊ¾Ý
+1145 D2AC            194                     SETB ES;Æô¶¯´®¿ÚÖÐ¶Ï
+1147 22              195                     RET;
+1148                 196             TAB1:
+1148 EEDEBE7E        197                     DB 0EEH,0DEH,0BEH,07EH;0,1,2,3
+114C EDDDBD7D        198                     DB 0EDH,0DDH,0BDH,07DH;4,5,6,7
+1150 EBDBBB7B        199                     DB 0EBH,0DBH,0BBH,07BH;8,9,A,B
+1154 E7D7B777        200                     DB 0E7H,0D7H,0B7H,077H;C,D,E,F
+1158                 201             TAB2:;ÕâÊÇ¶ÎÂë±í
+1158 3F065B4F        202                     DB 03FH,006H,05BH,04FH,066H,06DH,07DH,007H,07FH,06FH;0-9
+115C 666D7D07                
+1160 7F6F                    
+1162 777C395E        203                     DB 077H,07CH,039H,05EH,079H,071H;A-F
+1166 7971                    
+                     204     END
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E                   T Y P E  V A L U E   ATTRIBUTES
+
+ACC. . . . . . . . . . .  D ADDR   00E0H   A   
+DELAYMS. . . . . . . . .  C ADDR   10A0H   A   
+DELAYMSCIRCLE1 . . . . .  C ADDR   10A5H   A   
+DELAYMSCIRCLE2 . . . . .  C ADDR   10AAH   A   
+EA . . . . . . . . . . .  B ADDR   00A8H.7 A   
+ENDPROCESSER . . . . . .  C ADDR   10D4H   A   
+ES . . . . . . . . . . .  B ADDR   00A8H.4 A   
+ET0. . . . . . . . . . .  B ADDR   00A8H.1 A   
+EX0. . . . . . . . . . .  B ADDR   00A8H.0 A   
+EX1. . . . . . . . . . .  B ADDR   00A8H.2 A   
+FLASHSIGNER. . . . . . .  C ADDR   1056H   A   
+GETP1KEYPADTO3435. . . .  C ADDR   10BBH   A   
+INITIALISEINT0 . . . . .  C ADDR   1104H   A   
+INITIALISEINT1 . . . . .  C ADDR   110BH   A   
+INITIALISESERIAL . . . .  C ADDR   112DH   A   
+INITIALISETIMER0 . . . .  C ADDR   1114H   A   
+INT0PROCESSER. . . . . .  C ADDR   1031H   A   
+INT1PROCESSER. . . . . .  C ADDR   1044H   A   
+IT0. . . . . . . . . . .  B ADDR   0088H.0 A   
+IT1. . . . . . . . . . .  B ADDR   0088H.2 A   
+MAIN . . . . . . . . . .  C ADDR   1000H   A   
+MAINFUNCTION . . . . . .  C ADDR   102FH   A   
+NOTSEARCHFAILED. . . . .  C ADDR   10F4H   A   
+P0 . . . . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . . . . .  D ADDR   0090H   A   
+P2 . . . . . . . . . . .  D ADDR   00A0H   A   
+PCON . . . . . . . . . .  D ADDR   0087H   A   
+PS . . . . . . . . . . .  B ADDR   00B8H.4 A   
+PT0. . . . . . . . . . .  B ADDR   00B8H.1 A   
+PX0. . . . . . . . . . .  B ADDR   00B8H.0 A   
+PX1. . . . . . . . . . .  B ADDR   00B8H.2 A   
+REN. . . . . . . . . . .  B ADDR   0098H.4 A   
+RETURN . . . . . . . . .  C ADDR   1055H   A   
+RI . . . . . . . . . . .  B ADDR   0098H.0 A   
+SBUF . . . . . . . . . .  D ADDR   0099H   A   
+SEARCHKEYPADVALUE. . . .  C ADDR   10D9H   A   
+SEARCHKEYPADVALUELOOP. .  C ADDR   10E0H   A   
+SEARCHKEYPADVALUENOTTRUE  C ADDR   10EBH   A   
+SERIALPROCESSER. . . . .  C ADDR   1071H   A   
+SERIALPROCESSEREND . . .  C ADDR   107DH   A   
+SERIALRECEIVE. . . . . .  C ADDR   1080H   A   
+SERIALSENT . . . . . . .  C ADDR   1096H   A   
+SERIALSENTFRAME. . . . .  C ADDR   1098H   A   
+SM0. . . . . . . . . . .  B ADDR   0098H.7 A   
+SM1. . . . . . . . . . .  B ADDR   0098H.6 A   
+SM2. . . . . . . . . . .  B ADDR   0098H.5 A   
+SP . . . . . . . . . . .  D ADDR   0081H   A   
+TAB1 . . . . . . . . . .  C ADDR   1148H   A   
+TAB2 . . . . . . . . . .  C ADDR   1158H   A   
+TH0. . . . . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . . . . .  B ADDR   0098H.1 A   
+TIMER0PROCESSER. . . . .  C ADDR   104DH   A   
+TL0. . . . . . . . . . .  D ADDR   008AH   A   
+TL1. . . . . . . . . . .  D ADDR   008BH   A   
+TMOD . . . . . . . . . .  D ADDR   0089H   A   
+TOSERIALSENTFRAME. . . .  C ADDR   1092H   A   
+TR0. . . . . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . . . . .  B ADDR   0088H.6 A   
+TRANSFERNUMBERTOSIGNCODE  C ADDR   10F6H   A   
+A51 MACRO ASSEMBLER  EXP4                                                                 05/14/2015 15:46:28 PAGE     6
+
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

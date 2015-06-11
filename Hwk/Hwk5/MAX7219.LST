@@ -1,0 +1,109 @@
+C51 COMPILER V9.52.0.0   MAX7219                                                           06/06/2015 14:00:59 PAGE 1   
+
+
+C51 COMPILER V9.52.0.0, COMPILATION OF MODULE MAX7219
+NO OBJECT MODULE REQUESTED
+COMPILER INVOKED BY: D:\Program Files (x86)\keil\C51\BIN\C51.EXE MAX7219.c BROWSE DEBUG OBJECTEXTEND TABS(2) SRC(.\MAX72
+                    -19.SRC)
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF MAX7219.c: LICENSE ERROR (R207(3): REGISTRY READ ERROR)
+
+   1          #include<reg51.h>
+   2          #include<MAX7219.h>
+   3          sbit Din=P3^0;
+   4          sbit Load=P3^1;
+   5          sbit Clk=P3^2;
+   6          unsigned char TransferNumberToSignCode(unsigned int Number){
+   7   1      ////////利用片内的bcd转换器
+   8   1      //  unsigned char Return;
+   9   1      //  switch(Number){
+  10   1      //    case 0:Return=0x3f;break;
+  11   1      //    case 1:Return=0x06;break;
+  12   1      //    case 2:Return=0x5b;break;
+  13   1      //    case 3:Return=0x4f;break;
+  14   1      //    case 4:Return=0x66;break;
+  15   1      //    case 5:Return=0x6d;break;
+  16   1      //    case 6:Return=0x7d;break;
+  17   1      //    case 7:Return=0x07;break;
+  18   1      //    case 8:Return=0x7f;break;
+  19   1      //    case 9:Return=0x6f;break;
+  20   1      //    case 0xa:Return=0x77;break;
+  21   1      //    case 0xb:Return=0x7c;break;
+  22   1      //    case 0xc:Return=0x39;break;
+  23   1      //    case 0xd:Return=0x5e;break;
+  24   1      //    case 0xe:Return=0x79;break;
+  25   1      //    case 0xf:Return=0x71;break;
+  26   1      //  }
+  27   1      //  //Return=~Return;//共阳极请不要注释，共阴极请注释
+  28   1      //  return(Return);
+  29   1      
+  30   1      
+  31   1      return(Number);
+  32   1      }
+  33          void Max7219Sign(unsigned int SelectPort,unsigned int Number){
+  34   1        switch(SelectPort){
+  35   2          case 0:Max7219Send(0x01,TransferNumberToSignCode(Number));break;
+  36   2          case 1:Max7219Send(0x02,TransferNumberToSignCode(Number));break;
+  37   2          case 2:Max7219Send(0x03,TransferNumberToSignCode(Number));break;
+  38   2          case 3:Max7219Send(0x04,TransferNumberToSignCode(Number));break;
+  39   2          case 4:Max7219Send(0x05,TransferNumberToSignCode(Number));break;
+  40   2          case 5:Max7219Send(0x06,TransferNumberToSignCode(Number));break;
+  41   2          case 6:Max7219Send(0x07,TransferNumberToSignCode(Number));break;
+  42   2          case 7:Max7219Send(0x08,TransferNumberToSignCode(Number));break;
+  43   2        }
+  44   1      }
+  45          void Max7219Close(){
+  46   1        Max7219Send(0x0c, 0x00);//工作模式地址0x0C 0X00:关闭 0x01 正常
+  47   1      }
+  48          void Max7219SendOneData(unsigned char Data){
+  49   1        unsigned char i;
+  50   1        for(i=0;i<8;i++){
+  51   2          Clk=0;
+  52   2          Din=Data&0x80;//写地址最高低位
+  53   2          DelayTenUs();//10us
+C51 COMPILER V9.52.0.0   MAX7219                                                           06/06/2015 14:00:59 PAGE 2   
+
+  54   2          Clk=1;
+  55   2          DelayTenUs();//10us
+  56   2          Data<<=1;
+  57   2        }
+  58   1      }
+  59          void Max7219Send(unsigned char Address,unsigned char Data){
+  60   1        Load=0;//开始传输
+  61   1        DelayTenUs();//10us
+  62   1        Max7219SendOneData(Address);
+  63   1        Max7219SendOneData(Data);
+  64   1        Load=1;//结束传输
+  65   1      } 
+  66          void InitialiseMax7219(){
+  67   1        Max7219Send(0x0b,4);//4位选通
+  68   1        Max7219Send(0x09,0xff);//编码模式地址0x09 0x00~0xff,为一的则位选通
+  69   1        Max7219Send(0x0A,0x07);//亮度，0x0f最亮
+  70   1        Max7219Send(0x0c, 0x01);//工作模式地址0x0C 0X00:关闭 0x01 正常
+  71   1      }
+  72          void DelayTenUs(){
+  73   1        #pragma ASM
+  74   1          NOP
+  75   1          NOP
+  76   1          NOP
+  77   1          NOP
+  78   1          NOP
+  79   1          NOP
+  80   1        #pragma ENDASM 
+  81   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    235    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
